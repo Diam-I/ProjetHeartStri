@@ -39,7 +39,9 @@ public class Serviteur extends Carte {
 
     public void attaquer(Serviteur cible) {
         //  attaque du serviteur vers une cible
+        System.out.println(this.getNom() + " attaque " + cible.getNom() + ".");
         cible.recevoirDegat(this.attaque);  
+
     }
 
     @Override
