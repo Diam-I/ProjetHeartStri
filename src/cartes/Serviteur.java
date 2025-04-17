@@ -54,5 +54,18 @@ public class Serviteur extends Carte {
                 ", attaque=" + attaque +
                 '}';
     }
+    public void afficher() {
+        //  methode qui affiche les caracteristiques du serviteur
+        System.out.println("Nom: " + getNom());
+        System.out.println("Cout de mana: " + getCoutMana());
+        System.out.println("Vie: " + vie);
+        System.out.println("Attaque: " + attaque);
+        System.out.println("Pouvoir spécial: " + pouvoirSpecial);
+    }
+    @Override
+    public void jouer() {
+        //  methode qui permet de jouer le serviteur
+        System.out.println("Le serviteur " + getNom() + " est joué.");
+    }
 
 }

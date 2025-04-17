@@ -33,5 +33,7 @@ public abstract class Carte {
 		 */
 		return nom ;
 	}
+	public abstract void jouer (); // Methode abstraite qui sera redéfinie dans les classes filles (Serviteur, Sort, Arme) //
+	public abstract void afficher(); // Methode abstraite qui sera redéfinie dans les classes filles (Serviteur, Sort, Arme) //
 	
 }
