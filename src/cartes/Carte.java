@@ -11,7 +11,7 @@ public abstract class Carte {
 	
 	public Carte (String nom, int coutMana) {
 		/*
-		 * le constructeur de la classe Carte 
+		 * Le constructeur de la classe Carte 
 		 * @param nom : nom de la  carte
 		 * @param coutMana : le cout du mana sur la carte 
 		 */
@@ -19,7 +19,6 @@ public abstract class Carte {
 		this.nom = nom ; 
 		this.coutMana = coutMana ; 
 	}
-	
 	
 	public int getCoutMana () {
 		/*
@@ -30,7 +29,7 @@ public abstract class Carte {
 	
 	public String getNom (){
 		/* 
-		 * fonction qui retourne le nom de la carte afin que le nom de la carte soit accessible depuis une autre classe 
+		 * Fonction qui retourne le nom de la carte afin que le nom de la carte soit accessible depuis une autre classe 
 		 */
 		return nom ;
 	}
