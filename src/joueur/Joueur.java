@@ -41,7 +41,7 @@ public class Joueur {
         System.out.println("Mana disponible: " + mana); // Affiche le mana disponible
         System.out.println("Vie restante: " + vie); // Affiche la vie restante
         if (serviteurs != null) {
-            System.out.println("Serviteur en jeu: " + serviteur.getNom()); // Affiche le nom du serviteur en jeu
+            System.out.println("Serviteur en jeu: " + serviteurs.getNom()); // Affiche le nom du serviteur en jeu
         } else {
             System.out.println("Aucun serviteur en jeu."); // Indique qu'il n'y a pas de serviteur en jeu
         }

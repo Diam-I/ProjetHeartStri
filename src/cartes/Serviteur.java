@@ -24,6 +24,9 @@ public class Serviteur extends Carte {
     public String getPouvoirSpecial() {
         return pouvoirSpecial;
     }
+    public String getNom(){
+        return super.getNom(); // Appel de la méthode getNom() de la classe mère Carte  
+    }
 
     public void recevoirDegat(int degat) {
         //  methode qui permet de recevoir des degats
@@ -63,9 +66,23 @@ public class Serviteur extends Carte {
         System.out.println("Pouvoir spécial: " + pouvoirSpecial);
     }
     @Override
+    public Carte retirerCarte() {
+        /* 
+        * Methode qui permet de retirer et retourner la première carte du deck
+        */
+        if (!cartes.isEmpty()) { // Vérifie si le deck n'est pas vide
+            Carte cartePiochee = cartes.remove(0); // Retire la première carte
+            System.out.println("Carte piochée : " + cartePiochee.getNom()); // Affiche la carte piochée
+            return cartePiochee; // Retourne la carte piochée
+        } else {
+            System.out.println("Le deck est vide, aucune carte à piocher.");
+            return null; // Retourne null si le deck est vide
+        }
+    }
+    @Override
     public void jouer() {
         //  methode qui permet de jouer le serviteur
-        System.out.println("Le serviteur " + getNom() + " est joué.");
+        System.out.println("Le serviteur " + this.getNom() + " est joué.");
     }
 
 }
