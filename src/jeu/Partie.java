@@ -44,11 +44,38 @@ public class Partie {
 		/* Demander au joueur 2 de choisir son heros */
 		Heros herosJoueur2 = choisirHeros();
 
+		/* Demander au joueur 1 de piocher 3 cartes de son deck */
+		for (int i=0 ; i<3 ; i++) {
+			joueur1.piocherCarte();
+		}		
 		
+		/* Demander au joueur 2 de piocher 4 cartes de son deck */
+		for (int i=0 ; i<4 ; i++) {
+			joueur2.piocherCarte();
+		}
 		
+		/* Initialiser le joueur actuel au joueur 1 */
+		joueurActuel = joueur1 ;
+		/* Les 2 joueurs s affrontent tant qu'aucun heros n a un point de vie < 0 */ 
+		while (!finPartie()) {
+			joueurActuel.jouerTour();
+			/* Incrementer le nombre de mana du hero si il est < 10 */
+			Heros herosJoueurActuelle = joueurActuel.getHeros() ;
+			if (herosJoueurActuelle.getCoutMana() < 10) {
+				herosJoueurActuelle.incrementerMana();
+			}
+			/* Passer à l autre joueur */
+			if (joueurActuel == joueur1) {
+				joueurActuel = joueur2; 
+			}
+			else {
+				joueurActuel = joueur1 ;
+			}
+		}
 		
 	}
 	
+		
 	
 	/**
 	 * Methode qui permet au joueur de choisir son heros en debut de partie
@@ -117,6 +144,21 @@ public class Partie {
 		return heros ;
 		
 	}
-
+	
+	
+	/**
+	 *  Methode qui determine si la partie est fini ou pas en fonction des points de vie des deux heros 
+	 * @return true si la partie est fini, et false sinon
+	 */
+	public boolean finPartie () {
+		Heros heros1 = joueur1.getHeros();
+		Heros heros2 = joueur2.getHeros();
+		
+		/* Si un des heros a des points de vie <= 0, la partie est fini */
+		if ((heros1.getPointDeVie() <= 0)||(heros2.getPointDeVie())<=0) {
+			return true ;
+		}
+		return false ;
+	}
 
 }
