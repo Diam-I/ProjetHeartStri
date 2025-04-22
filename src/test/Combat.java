@@ -1,41 +1,24 @@
 package test;
-import cartes.*;
-import java.util.ArrayList;
-import java.util.Random;
+import jeu.Partie;
+import jeu.Plateau;
+import joueur.Joueur;
 
 public class Combat {
     public static void main(String[] args) {
-        // Création d'une liste de serviteurs
-        ArrayList<Serviteur> deck = new ArrayList<>();
-        deck.add(new Serviteur("Ragnaros", 8, 8, 8, "Aucun"));
-        deck.add(new Serviteur("Sylvanas Coursevent", 6, 5, 5, "Vol de vie"));
-        deck.add(new Serviteur("Tirion Fordring", 8, 6, 6, "Provocation"));
-        deck.add(new Serviteur("Ysera", 9, 12, 4, "Rêve"));
-        deck.add(new Serviteur("Le Champion Envahi", 5, 6, 6, "Charge"));
+        
+        // Création des deux joueurs
+        Joueur joueur1 = new Joueur("Joueur 1");
+        Joueur joueur2 = new Joueur("Joueur 2");
 
-        Random random = new Random();
-        Serviteur serviteur1 = deck.get(random.nextInt(deck.size()));
-        Serviteur serviteur2 = deck.get(random.nextInt(deck.size()));
+        // Création du plateau
+        Plateau plateau = new Plateau();
 
-        // Verification des deux serviteurs sélectionnés sont différents
-        while (serviteur1 == serviteur2) {
-            serviteur2 = deck.get(random.nextInt(deck.size()));
-        }
+        // Création de la partie avec les joueurs, le plateau, et les paramètres initiaux
+        Partie partie = new Partie(joueur1, joueur2, 1, joueur1, plateau);
 
-        System.out.println("Serviteur 1 sélectionné : " + serviteur1);
-        System.out.println("Serviteur 2 sélectionné : " + serviteur2);
+        // Lancement de la partie
+        partie.demarrer();
 
-        while (serviteur1.getVie() > 0 && serviteur2.getVie() > 0) {
-            serviteur1.attaquer(serviteur2);
-            if (serviteur2.getVie() > 0) {
-                serviteur2.attaquer(serviteur1);
-            }
-        }
 
-        if (serviteur1.getVie() > 0) {
-            System.out.println(serviteur1.getNom() + " a gagné le combat !");
-        } else {
-            System.out.println(serviteur2.getNom() + " a gagné le combat !");
-        }
     }
 }

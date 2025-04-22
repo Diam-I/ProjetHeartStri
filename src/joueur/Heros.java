@@ -36,7 +36,10 @@ public class Heros {
 	public int getCoutMana() {
 		return coutMana;
 	}
-
+	public String getNom() {
+		return nom;
+	}
+	
 	/**
 	 * Methode qui permet d incremenet le cout du mana du heros a chaque tout tant qu elle n atteint pas les 10
 	 */
@@ -44,7 +47,12 @@ public class Heros {
 		coutMana ++ ; 
 	}
 	
-	
+	public void recevoirDegat(int degat) {
+		this.pointDeVie -= degat;
+		if (this.pointDeVie <= 0) {
+			System.out.println(this.nom + " est détruit !");
+		}
+	}
 	
 
 }

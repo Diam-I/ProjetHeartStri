@@ -12,6 +12,5 @@ public class Plateau {
 	private List <Serviteur> serviteursJ2 ; /* La liste des serviteurs du joueur 2 */
 
 	
-	
 
 }

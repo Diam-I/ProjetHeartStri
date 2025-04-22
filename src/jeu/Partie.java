@@ -2,6 +2,8 @@ package jeu;
 
 import java.util.Scanner;
 
+import cartes.Deck;
+import cartes.Serviteur;
 import joueur.Heros;
 import joueur.Joueur;
 
@@ -33,50 +35,48 @@ public class Partie {
 	}
 	
 	/**
-	 * Methode qui permet de demmarer la partie et de laisser chacun des deux joueurs choisir leur deck et heros 
+	 * Methode qui permet de generer un deck avec des cartes legendaires
+	 * @return le deck genere
 	 */
-	public void demarrer() {
-		System.out.println("Début de la partie !");
-		
-		/* Demander au joueur 1 de choisir son heros */
-		Heros herosJoueur1 = choisirHeros();
-		
-		/* Demander au joueur 2 de choisir son heros */
-		Heros herosJoueur2 = choisirHeros();
-
-		/* Demander au joueur 1 de piocher 3 cartes de son deck */
-		for (int i=0 ; i<3 ; i++) {
-			joueur1.piocherCarte();
-		}		
-		
-		/* Demander au joueur 2 de piocher 4 cartes de son deck */
-		for (int i=0 ; i<4 ; i++) {
-			joueur2.piocherCarte();
+	public Deck genererDeckAvecLegendaires(Deck deck) {
+		// Cartes emblématiques
+		deck.ajouterCarte(new Serviteur("Ragnaros", 8, 8, 8, "Aucun"));
+		deck.ajouterCarte(new Serviteur("Sylvanas Coursevent", 6, 5, 5, "Vol de vie"));
+		deck.ajouterCarte(new Serviteur("Tirion Fordring", 8, 6, 6, "Provocation"));
+		deck.ajouterCarte(new Serviteur("Ysera", 9, 12, 4, "Rêve"));
+		deck.ajouterCarte(new Serviteur("Le Champion Envahi", 5, 6, 6, "Charge"));
+	
+		// Le reste du deck
+		for (int i = 5; i < 30; i++) {
+			deck.ajouterCarte(new Serviteur("Serviteur " + (i + 1), 5, 5, 5, "Aucun"));
 		}
-		
-		/* Initialiser le joueur actuel au joueur 1 */
-		joueurActuel = joueur1 ;
-		/* Les 2 joueurs s affrontent tant qu'aucun heros n a un point de vie < 0 */ 
-		while (!finPartie()) {
-			joueurActuel.jouerTour();
-			/* Incrementer le nombre de mana du hero si il est < 10 */
-			Heros herosJoueurActuelle = joueurActuel.getHeros() ;
-			if (herosJoueurActuelle.getCoutMana() < 10) {
-				herosJoueurActuelle.incrementerMana();
-			}
-			/* Passer à l autre joueur */
-			if (joueurActuel == joueur1) {
-				joueurActuel = joueur2; 
-			}
-			else {
-				joueurActuel = joueur1 ;
-			}
-		}
-		
+	
+		return deck;
 	}
 	
-		
+	/**
+	 * Methode qui permet de jouer un tour
+	 * @param joueurActuel : le joueur qui joue le tour
+	 * @param joueurAdverse : le joueur adverse
+	 */
+	private void jouerTour(Joueur joueurActuel, Joueur joueurAdverse) {
+		// Vérifier si le joueur peut attaquer le héros adverse
+		if (joueurAdverse.getServiteurs().isEmpty()) {
+			System.out.println(joueurActuel.getNom() + " attaque le héros adverse !");
+			Serviteur serviteur = joueurActuel.getServiteurs().get(0); // Exemple : premier serviteur
+			serviteur.attaquer(joueurAdverse.getHeros());
+		} else {
+			System.out.println(joueurActuel.getNom() + " attaque un serviteur adverse !");
+			Serviteur serviteur = joueurActuel.getServiteurs().get(0); // Exemple : premier serviteur
+			Serviteur cible = joueurAdverse.getServiteurs().get(0); // Exemple : premier serviteur adverse
+			serviteur.attaquer(cible);
 	
+			// Si le serviteur adverse est détruit, le retirer
+			if (cible.getVie() <= 0) {
+				joueurAdverse.retirerServiteur(cible);
+			}
+		}
+	}
 	/**
 	 * Methode qui permet au joueur de choisir son heros en debut de partie
 	 * @return le heros choisi par le joueur
@@ -161,4 +161,76 @@ public class Partie {
 		return false ;
 	}
 
-}
+	
+
+	/**
+	 * Methode qui permet de demmarer la partie et de laisser chacun des deux joueurs choisir leur deck et heros 
+	 */
+	public void demarrer() {
+		System.out.println("Début de la partie !");
+		
+		System.out.println("Joueur 1 c'est à vous !! ");
+		/* Demander au joueur 1 de choisir son heros */
+		Heros herosJoueur1 = choisirHeros();
+		joueur1.setHeros(herosJoueur1); // Affecter le heros au joueur 1
+
+		/* Demander au joueur 2 de choisir son heros */
+		System.out.println("Joueur 2 c'est à vous !! ");	
+		Heros herosJoueur2 = choisirHeros();
+		joueur2.setHeros(herosJoueur2); // Affecter le heros au joueur 2
+		/* Afficher les heros choisis par les deux joueurs */
+		System.out.println("Joueur 1 : " + joueur1.getNom() + " a choisi le héros " + herosJoueur1.getNom());
+		System.out.println("Joueur 2 : " + joueur2.getNom() + " a choisi le héros " + herosJoueur2.getNom());
+		
+		Deck initDeck1 = new Deck( ); // Créer un nouveau deck pour le joueur1
+		Deck initdeck2 = new Deck( ); // Créer un nouveau deck pour le joueur2
+		Deck deck1 = genererDeckAvecLegendaires(initDeck1);
+		Deck deck2 = genererDeckAvecLegendaires(initdeck2); // Créer un nouveau deck pour le joueur2
+		/* Demander au joueur 1 de piocher 3 cartes de son deck */
+		for (int i=0 ; i<3 ; i++) {
+			joueur1.piocherCarte(deck1); // Piocher une carte du deck pour le joeur 1
+		}		
+		
+		/* Demander au joueur 2 de piocher 4 cartes de son deck */
+		for (int i=0 ; i<4 ; i++) {
+			joueur2.piocherCarte(deck2); // Piocher une carte du deck pour le joeur 2
+		}
+		
+		/* Initialiser le joueur actuel au joueur 1 */
+		joueurActuel = joueur1 ;
+		Joueur joueurAdverse = joueur2 ;
+		/* Les 2 joueurs s affrontent tant qu'aucun heros n a un point de vie < 0 */ 
+		while (!finPartie()) {
+			System.out.println("C'est le tour numéro " + numeroTour + " : " + joueurActuel.getNom() + " joue.");
+			//piocher une carte 
+			if (joueurActuel == joueur1) {
+				joueurActuel.piocherCarte(deck1);
+			} else {
+				joueurActuel.piocherCarte(deck2);
+			}
+
+			// Jouer un tour
+        	jouerTour(joueurActuel, joueurAdverse);
+			/* Incrementer le nombre de mana du hero si il est < 10 */
+
+			Heros herosJoueurActuelle = joueurActuel.getHeros() ;
+			if (herosJoueurActuelle.getCoutMana() < 10) {
+				herosJoueurActuelle.incrementerMana();
+			}
+			// Passer au joueur suivant
+			Joueur temp = joueurActuel;
+			joueurActuel = joueurAdverse;
+			joueurAdverse = temp;
+			numeroTour++;
+			
+		}
+		// Fin de la partie
+		if (joueur1.getHeros().getPointDeVie() <= 0) {
+			System.out.println(joueur2.getNom() + " a gagné la partie !");
+		} else {
+			System.out.println(joueur1.getNom() + " a gagné la partie !");
+		}
+	}
+}	
+		
+	

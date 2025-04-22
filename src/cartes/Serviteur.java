@@ -1,5 +1,7 @@
 package cartes;
 
+import joueur.Heros;
+
 public class Serviteur extends Carte {
     private int vie; // Vie du serviteur
     private int attaque; // Attaque du serviteur
@@ -24,6 +26,17 @@ public class Serviteur extends Carte {
     public String getPouvoirSpecial() {
         return pouvoirSpecial;
     }
+    public String getNom(){
+        return super.getNom() ; 
+    }
+    public void afficher() {
+        //  methode qui affiche les caracteristiques du serviteur
+        System.out.println("Nom: " + getNom());
+        System.out.println("Cout de mana: " + getCoutMana());
+        System.out.println("Vie: " + vie);
+        System.out.println("Attaque: " + attaque);
+        System.out.println("Pouvoir spécial: " + pouvoirSpecial);
+    }
 
     public void recevoirDegat(int degat) {
         //  methode qui permet de recevoir des degats
@@ -37,11 +50,13 @@ public class Serviteur extends Carte {
         }
     }
 
-    public void attaquer(Serviteur cible) {
-        //  attaque du serviteur vers une cible
-        System.out.println(this.getNom() + " attaque " + cible.getNom() + ".");
-        cible.recevoirDegat(this.attaque);  
+    public void attaquer(Heros heros) {
+    heros.recevoirDegat(this.attaque);
+    }
 
+    public void attaquer(Serviteur serviteur) {
+        serviteur.recevoirDegat(this.attaque);
+        this.recevoirDegat(serviteur.attaque);
     }
 
     @Override
@@ -54,5 +69,13 @@ public class Serviteur extends Carte {
                 ", attaque=" + attaque +
                 '}';
     }
+    @Override
+    public void jouer(){
+        //  methode qui permet de jouer le serviteur
+        System.out.println("Le serviteur " + this.getNom() + " est joué.");
+        // 
+    }
+    
+    
 
 }
