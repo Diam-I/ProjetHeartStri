@@ -1,5 +1,7 @@
 package joueur;
 
+import java.util.Scanner;
+
 public class Heros {
 	/**
 	 * Classe qui decrit le heros 
@@ -52,6 +54,74 @@ public class Heros {
 		if (this.pointDeVie <= 0) {
 			System.out.println(this.nom + " est détruit !");
 		}
+	}
+	
+	/**
+	 * Methode qui permet au joueur de choisir son heros en debut de partie
+	 * @return le heros choisi par le joueur
+	 */
+	public static Heros choisirHeros() {
+		
+		Scanner input = new Scanner(System.in);
+		boolean herosValide = false ;
+		Heros heros = null ;
+		
+		/* Demander au joueur de saisir le numéro corredpondant a son heros tant que son choix n'est pas valide */
+		while (!herosValide) {
+			System.out.println("Veuillez choisir un héros parmis la liste des héros possible : ");
+			System.out.println("1- Chevalier de la mort\n2- Chasseur de démons\n3-Druide\n4- Chasseur\n5- Mage\n6- Paladin\n7- Prêtre\n8- Voleur\n9- Chaman\n10- Démoniste\n11- Guerrier");
+			String numeroHeros = input.nextLine();
+			switch (numeroHeros) {
+			/* Pour la partie 2 on ne gère pas encore les armes, donc on met que les "" */
+			case "1":
+                heros = new Heros("Chevalier de la mort", "Explosion de glace", "", 30, 2);
+                herosValide = true;
+                break;
+            case "2":
+            	heros = new Heros("Chasseur de démons", "Frappe du chaos","", 30, 2);
+            	herosValide = true;
+                break;
+            case "3":
+            	heros = new Heros("Druide", "Croissance sauvage","", 30, 2);
+            	herosValide = true;
+                break;
+            case "4":
+            	heros = new Heros("Chasseur", "Tir précis","", 30, 2);
+            	herosValide = true;
+                break;
+            case "5":
+            	heros = new Heros("Mage", "Boule de feu","", 30, 2);
+            	herosValide = true;
+                break;
+            case "6":
+            	heros = new Heros("Paladin", "Renfort divin","", 30, 2);
+            	herosValide = true;
+                break;
+            case "7":
+            	heros = new Heros("Prêtre", "Soins sacrés","", 30, 2);
+            	herosValide = true;
+                break;
+            case "8":
+            	heros = new Heros("Voleur", "Attaque furtive","", 30, 2);
+            	herosValide = true;
+                break;
+            case "9":
+            	heros = new Heros("Chaman", "Totem de feu","", 30, 2);
+            	herosValide = true;
+                break;
+            case "10":
+            	heros = new Heros("Démoniste", "Lien démoniaque","", 30, 2);
+            	herosValide = true;
+                break;
+            case "11":
+            	heros = new Heros("Guerrier", "Armure +2","", 30, 2);
+            	herosValide = true;
+                break;
+			}
+
+		}
+		return heros ;
+		
 	}
 	
 

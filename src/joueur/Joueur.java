@@ -15,6 +15,7 @@ public class Joueur {
     public static final int VIE_MAX = 30; // Valeur maximale de vie
     public static final int VIE_MIN = 0; // Valeur minimale de vie
 	private Heros heros; // Attribut pour stocker le héros du joueur
+	private List<Carte> main ; // Liste de carte que le joueur a dans sa main 
 
     // Constructeur de la classe Joueur
     public Joueur(String nom) {
@@ -22,6 +23,8 @@ public class Joueur {
         this.mana = MANA_MAX; // Initialisation du mana à la valeur maximale
         this.vie = VIE_MAX; // Initialisation de la vie à la valeur maximale
         this.serviteurs = new ArrayList<>(); // Initialisation du serviteur à null
+        this.main = new ArrayList<>(); // Initialisation des cartes dans la main à null
+        
     }
     // Méthode pour obtenir le nom du joueur
     public String getNom() {
@@ -39,6 +42,9 @@ public class Joueur {
 	public void setHeros (Heros heros){
 		this.heros = heros; // Définit le héros du joueur
 	}
+	public List<Carte> getMain () {
+		return main ; // Retourne les cartes dans la main du joueur
+	}
 
      
     public void jouerTour() {
@@ -53,11 +59,12 @@ public class Joueur {
 			System.out.println("Aucun serviteur en jeu.");
 		}
 	}
-    public void ajouteServiteur(Serviteur serviteur) {
+    public void ajouteServiteur(Serviteur serviteur,int indice ) {
         // Méthode pour ajouter un serviteur à la liste des serviteurs
         if (serviteurs.size() < 7) { // Vérifie si le nombre de serviteurs est inférieur à 7
             serviteurs.add(serviteur); // Ajoute le serviteur à la liste
             System.out.println("Le serviteur " + serviteur.getNom() + " a été ajouté à la liste des serviteurs de " + nom + "."); // Affiche un message de confirmation
+            main.remove(indice);
         } else {
             System.out.println("Le joueur " + nom + " ne peut pas avoir plus de 7 serviteurs."); // Indique que le joueur ne peut pas avoir plus de 7 serviteurs
         }
@@ -102,7 +109,8 @@ public class Joueur {
 		// Sinon, pioche une carte
 		Carte carte = deck.getCartes().get(0); // Prend la première carte du deck
         deck.retirerCarte(carte);
-        System.out.println("Le joueur" +  nom + " pioche une carte : " + carte.getNom()); // Affiche le nom de la carte piochée
+        System.out.println("Le " +  nom + " pioche une carte : " + carte.getNom()); // Affiche le nom de la carte piochée
+        main.add(carte); // Ajouter la carte piocher dans la main du serviteur 
     }
 	public Heros getHeros() {
 		// Retourne le héros du joueur
