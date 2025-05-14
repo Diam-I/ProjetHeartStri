@@ -124,5 +124,11 @@ public class Heros {
 		
 	}
 	
+	///
+	public void soigner(int quantite) {
+	    this.pointDeVie += quantite;
+	    System.out.println(nom + " récupère " + quantite + " points de vie. PV actuels : " + pointDeVie);
+	}
+
 
 }
