@@ -75,6 +75,12 @@ public class Serviteur extends Carte {
         System.out.println("Le serviteur " + this.getNom() + " est joué.");
         // 
     }
+
+	@Override
+	public void utiliser() {
+		// TODO Auto-generated method stub
+		
+	}
     
     
 

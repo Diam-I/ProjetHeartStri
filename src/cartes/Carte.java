@@ -1,5 +1,11 @@
 package cartes;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Carte {
 	/*  
 	 * Classe abstraite qui représente une carte du jeu 
@@ -36,5 +42,8 @@ public abstract class Carte {
 	public abstract void jouer (); // Methode abstraite qui sera redéfinie dans les classes filles (Serviteur, Sort, Arme) //
 	public abstract void afficher(); // Methode abstraite qui sera redéfinie dans les classes filles (Serviteur, Sort, Arme) //
 	
+	public abstract void utiliser(); // Methode abstraite qui sera redéfinie dans les classes filles (Serviteur, Sort, Arme) //	
+
 	
+
 }

@@ -1,0 +1,101 @@
+nom,coutMana,attaque,vie,special
+Ragnaros,8,8,8,Aucun
+Sylvanas Coursevent,6,5,5,Vol de vie
+Tirion Fordring,8,6,6,Provocation
+Ysera,9,4,12,Rêve
+Le Champion Envahi,5,6,6,Charge
+Alexstrasza,9,8,8,Soigne ou blesse
+Deathwing,10,12,12,Destruction
+Malygos,9,4,12,Boost magique
+Nozdormu,9,8,8,Accélération
+Nefarian,9,8,8,Sorts volés
+Onyxia,9,8,8,Invocation
+Grommash Hurlenfer,8,4,9,Rage
+Cairne Sabot-de-Sang,6,4,5,Invocation
+Harrison Jones,5,5,4,Destruction arme
+Baron Geddon,7,7,5,Explosion
+Illidan Hurlorage,6,7,5,Invocation
+Chillwind Yeti,4,4,5,Aucun
+Loup Alpha,2,2,2,Buff
+Ogre Brutal,6,6,7,Attaque aléatoire
+Garde de Baie-du-Butin,3,3,3,Provocation
+Golem des Moissons,3,3,3,Invocation
+Sanglier Brochepierre,1,1,1,Charge
+Goule Déchaînée,4,3,5,Effet mort
+Murloc Chasseur,1,2,1,Aucun
+Chef de Guerre Murloc,3,3,3,Buff Murloc
+Écuyer du Temple,1,1,2,Bouclier divin
+Mage de Dalaran,4,2,4,Boost magique
+Moine Pandaren,5,4,7,Soin
+Invocateur Sinistre,4,3,5,Invocation
+Tigre Strangleronce,5,5,5,Furtivité
+Fée Lumineuse,2,1,4,Soin
+Loup Fantôme,3,3,2,Charge
+Ours Grizzly,3,3,4,Provocation
+Garde de Hurlevent,7,6,6,Cri de guerre
+Élémentaire de Feu,6,6,5,Explosion
+Serpent Venimeux,2,2,1,Poison
+Gardien des Anciens,5,4,6,Bouclier divin
+Archer d'Élite,1,1,1,Tir à distance
+Guerrier Orc,4,4,3,Charge
+Chevalier du Soleil,3,3,3,Vol de vie
+Géant des Montagnes,12,8,8,Coût réduit
+Géant de Lave,20,8,8,Coût réduit
+Apprentie du Sorcier,2,3,2,Sorts réduits
+Pyromancien Fou,6,7,3,Explosion
+Berserker Amani,2,2,3,Rage
+Lanceur de Hache,3,3,3,Lancer de hache
+Sergent Brise-Roc,2,2,2,Aucun
+Soldat de la Lumière,2,2,1,Aucun
+Érudit du Kirin Tor,3,4,3,Boost
+Ancien du Savoir,7,5,5,Pioche
+Totem de Soin,1,0,2,Soin
+Totem de Foudre,2,0,2,Boost attaque
+Chasseur du Néant,5,5,5,Provocation
+Démoniste Déchaîné,4,4,4,Effet sacrificiel
+Mande-flammes,5,4,4,Bouclier divin
+Clerc de Comté-du-Nord,1,1,3,Pioche
+Furie du Vent,4,3,3,Furie du vent
+Gardien du Trésor,2,2,2,Aucun
+Guetteur Ancien,2,4,5,Ne peut pas attaquer
+Dragonnet Rouge,2,2,3,Souffle de feu
+Dragonnet Bleu,2,2,3,Bouclier magique
+Chaman de la Terre,4,3,6,Bouclier divin
+Invocateur des Ténèbres,4,4,3,Provocation
+Esprit Ancestral,3,0,3,Effet de résurrection
+Zélote Fanatique,3,3,2,Buff
+Garde du Temple,2,2,3,Provocation
+Veilleur Silencieux,3,2,5,Furtivité
+Maître-lame blessé,3,4,7,Blessure
+Chevaucheur de Loup,3,3,1,Charge
+Chef de Raid,3,2,2,Buff
+Protecteur Main-d'Argent,2,2,2,Bouclier divin
+Capitaine Barbe-de-Bronze,4,4,4,Boost alliés
+Géant de Chair,12,8,8,Coût réduit
+Seigneur Jaraxxus,9,3,15,Invocation
+Dame Vashj,5,4,5,Sorts gratuits
+Kael'thas Haut-Soleil,7,4,7,Lancement triple
+Anub'arak,9,8,4,Revivre
+Reno Jackson,6,4,6,Soigne entièrement
+Archimage Antonidas,7,5,7,Boule de feu
+Brann Barbe-de-Bronze,3,2,4,Effets doublés
+Thaurissan,6,5,5,Coût réduit
+Elise Cherchétoile,4,3,5,Trésors
+Finley Mrrgglton,1,1,3,Pouvoir héroïque
+Sir Galvadon,5,5,5,Adaptation
+N'zoth le Corrupteur,10,5,7,Ressuscite
+C'Thun,10,6,6,Dégâts globaux
+Yogg-Saron,10,7,5,Chaos magique
+Zilliax,5,3,2,Mécano-fusion
+Dr Boum,7,7,7,Boom bots
+Al'Akir,8,3,5,Charge et provocation
+Maexxna,6,2,8,Poison
+Loatheb,5,5,5,Sorts +5
+Sludge Belcher,5,3,5,Provocation
+Sneeds Old Shredder,8,5,7,Légendaire invoqué
+Piloted Sky Golem,6,6,4,Invocation
+Tinkmaster Overspark,3,3,3,Polymorphie
+Nat Pagle,2,0,4,Pioche
+Hemet Nesingwary,5,6,3,Tue bête
+Troggzor,7,6,6,Contrôle
+Iron Juggernaut,6,6,5,Bombe dans deck

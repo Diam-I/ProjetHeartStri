@@ -69,10 +69,9 @@ public class Partie {
 		System.out.println("Joueur 1 : " + joueur1.getNom() + " a choisi le héros " + herosJoueur1.getNom());
 		System.out.println("Joueur 2 : " + joueur2.getNom() + " a choisi le héros " + herosJoueur2.getNom());
 		
-		Deck initDeck1 = new Deck( ); // Créer un nouveau deck pour le joueur1
-		Deck initdeck2 = new Deck( ); // Créer un nouveau deck pour le joueur2
-		Deck deck1 = Deck.genererDeckAvecLegendaires(initDeck1);
-		Deck deck2 = Deck.genererDeckAvecLegendaires(initdeck2); // Créer un nouveau deck pour le joueur2
+		
+		Deck deck1 = Deck.genererDeckAvecLegendaires();
+		Deck deck2 = Deck.genererDeckAvecLegendaires(); // Créer un nouveau deck pour le joueur2
 		
 		/* Demander au joueur 1 de piocher 3 cartes de son deck */
 		for (int i=0 ; i<3 ; i++) {

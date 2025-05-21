@@ -46,6 +46,11 @@ public class Sort extends Carte{
 	            // Crée un setAttaque() ou un modifierAttaque() dans Serviteur
 	        }
 	    }
+		@Override
+		public void utiliser() {
+			// TODO Auto-generated method stub
+			
+		}
 	    
 	    
 }

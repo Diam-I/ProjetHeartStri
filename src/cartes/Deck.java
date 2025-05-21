@@ -1,7 +1,11 @@
 package cartes;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Deck  {
 
@@ -39,19 +43,53 @@ public class Deck  {
 	 * Methode qui permet de generer un deck avec des cartes legendaires
 	 * @return le deck genere
 	 */
-	public static Deck genererDeckAvecLegendaires(Deck deck) {
-		// Cartes emblématiques
-		deck.ajouterCarte(new Serviteur("Ragnaros", 8, 8, 8, "Aucun"));
-		deck.ajouterCarte(new Serviteur("Sylvanas Coursevent", 6, 5, 5, "Vol de vie"));
-		deck.ajouterCarte(new Serviteur("Tirion Fordring", 8, 6, 6, "Provocation"));
-		deck.ajouterCarte(new Serviteur("Ysera", 9, 12, 4, "Rêve"));
-		deck.ajouterCarte(new Serviteur("Le Champion Envahi", 5, 6, 6, "Charge"));
-	
-		// Le reste du deck
-		for (int i = 5; i < 30; i++) {
-			deck.ajouterCarte(new Serviteur("Serviteur " + (i + 1), 5, 5, 5, "Aucun"));
-		}
-	
+	public static Deck genererDeckAvecLegendaires() {
+		 Deck deck = new Deck();
+		 List<Serviteur> cartes = new ArrayList<>();
+		 // Récupèrer les cartes du fichiers qui contient toutes les cartes //
+		 try (BufferedReader br = new BufferedReader(new FileReader("src/cartes.csv"))) {
+		        String ligne = br.readLine();;
+		        while ((ligne = br.readLine()) != null) {
+		            String[] parts = ligne.split(",");
+		            if (parts.length == 5) {
+		                String nom = parts[0].trim();
+		                int cout = Integer.parseInt(parts[1].trim());
+		                int vie = Integer.parseInt(parts[2].trim());
+		                int attaque = Integer.parseInt(parts[3].trim());
+		                String pouvoir = parts[4].trim();
+		                cartes.add(new Serviteur(nom, cout, vie, attaque, pouvoir));
+		            }
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		 // Tirer au sort 30 cartes parmi les cartes récupéré //
+		 Random random = new Random();
+
+	    while (deck.getCartes().size() < 30 && deck.getCartes().size() < cartes.size()) {
+	        int index = random.nextInt(cartes.size());
+	        Serviteur carte_tire = cartes.get(index);
+
+	        // Verifier si la carte est deja dans le deck //
+	        boolean dejaDansDeck = false;
+	        for (Carte c : deck.getCartes()) {
+	            if (c.getNom().equals(carte_tire.getNom())) {
+	                dejaDansDeck = true;
+	                break;
+	            }
+	        }
+
+	        if (!dejaDansDeck) {
+	            Serviteur copie = new Serviteur(
+	                carte_tire.getNom(),
+	                carte_tire.getCoutMana(),
+	                carte_tire.getVie(),
+	                carte_tire.getAttaque(),
+	                carte_tire.getPouvoirSpecial()
+	            );
+	            deck.ajouterCarte(copie);
+	        }
+		    }
 		return deck;
 	}
 
