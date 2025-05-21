@@ -12,7 +12,7 @@ public abstract class Carte {
 	 * Cette carte peut être une arme, un serviteur ou un sort
 	 */
 	
-	private String nom ; // Nom de la carte //
+	protected String nom ; // Nom de la carte //
 	private int coutMana ; // Cout en mana de la carte //
 	
 	public Carte (String nom, int coutMana) {

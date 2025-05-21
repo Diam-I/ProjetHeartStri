@@ -3,8 +3,10 @@ package jeu;
 import java.util.List;
 import java.util.Scanner;
 
+import cartes.Arme;
 import cartes.Carte;
 import cartes.Serviteur;
+import cartes.Sort;
 import joueur.Joueur;
 
 public class Tour {
@@ -35,12 +37,85 @@ public class Tour {
 				if (carte instanceof Serviteur) {
 					Serviteur serviteurPlace = (Serviteur) carte;
 					joueurActuel.ajouteServiteur(serviteurPlace,choix-1);
-					
 				}
-				// Si la carte choisi n'est pas un serviteur // 
-				else {
-					System.out.println("La carte choisi ne peut pas être ajouter sur le plateau car ce n'est pas un serviteur !");
+				// Si la carte est une arme //
+				else if (carte instanceof Arme){
+					// Equiper le joueur avec cette arme //
+					joueurActuel.getHeros().equiperArme((Arme) carte);
 				}
+				else if (carte instanceof Sort) {
+					Sort sort = (Sort) carte ; 
+					if (sort.getEffet().equals("soin")) {
+						// Le joueur doit choisir quel serviteur soigner //
+						System.out.println("Choisissez un serviteur à soigner :");
+						List<Serviteur> serviteurs = joueurActuel.getServiteurs();
+						for (int i = 0; i < serviteurs.size(); i++) {
+						    System.out.println((i + 1) + " - " + serviteurs.get(i).getNom() + " (" + serviteurs.get(i).getVie() + " Points de Vie)");
+						}
+						int serviteur  = scanner.nextInt();
+						scanner.nextLine(); 
+
+						if (serviteur >= 1 && serviteur <= serviteurs.size()) {
+						    Serviteur cible = serviteurs.get(serviteur - 1);
+						    cible.soigner(3); 
+						    System.out.println(cible.getNom() + " a été soigné !");
+						} else {
+						    System.out.println("Choix invalide.");
+						}
+					}
+					else if (sort.getEffet().equals("degat")) {
+						// Le joueur doit choisir quel serviteur attaquer //
+						System.out.println("Choisissez une cible pour le sort de dégâts :");
+						System.out.println("Héros adverse (" + joueurAdverse.getHeros().getPointDeVie() + " Points de Vie)");
+
+						List<Serviteur> serviteursAdverses = joueurAdverse.getServiteurs();
+						for (int i = 0; i < serviteursAdverses.size(); i++) {
+						    Serviteur serviteur = serviteursAdverses.get(i);
+						    System.out.println((i + 1) + " - " + serviteur.getNom() + " (" + serviteur.getVie() + " Points de Vie)");
+						}
+
+						int serviteur_cible = scanner.nextInt();
+						scanner.nextLine(); 
+						if (serviteur_cible == 0) {
+						    joueurAdverse.getHeros().recevoirDegat(3);
+						    System.out.println("Le héros adverse a subi 3 dégâts !"); ///// On doit le modifier plus tard !!!!!!!!!!!!!!!!!
+						} else if (serviteur_cible >= 1 && serviteur_cible <= serviteursAdverses.size()) {
+						    Serviteur cible = serviteursAdverses.get(serviteur_cible - 1);
+						    cible.recevoirDegat(3); /////////////
+						    System.out.println(cible.getNom() + " a subi 3 dégâts !"); /////////////////
+						} else {
+						    System.out.println("Choix invalide.");
+						}
+
+					}
+					else if (sort.getEffet().equals("boost")) {
+						// Le joueur doit choisir un serviteur a booster //
+						List<Serviteur> serviteurs = joueurActuel.getServiteurs();
+						if (serviteurs.isEmpty()) {
+						    System.out.println("Aucun serviteur à booster.");
+						} else {
+						    System.out.println("Choisissez un serviteur à booster :");
+						    for (int i = 0; i < serviteurs.size(); i++) {
+						        Serviteur s = serviteurs.get(i);
+						        System.out.println((i + 1) + " - " + s.getNom() + " (Attaque : " + s.getAttaque() + ", Points de Vie : " + s.getVie() + ")");
+						    }
+
+						    int serviteur_booster = scanner.nextInt();
+						    scanner.nextLine(); 
+
+						    if (serviteur_booster >= 1 && serviteur_booster <= serviteurs.size()) {
+						        Serviteur cible = serviteurs.get(serviteur_booster - 1);
+						        cible.setAttaque(cible.getAttaque() + 2); ///// A modifier !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+						        cible.recevoirDegat(-2); //// A modifier !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+						        System.out.println(cible.getNom() + " a été boosté (+2 Attaque, +2 PV)."); //// A modifier !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+						    } else {
+						        System.out.println("Choix invalide.");
+						    }
+						}
+
+					}
+				}
+				
 			}
 			else {
 				System.out.println("Le choix de la carte est invalide !");

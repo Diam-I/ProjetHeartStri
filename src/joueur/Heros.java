@@ -2,6 +2,8 @@ package joueur;
 
 import java.util.Scanner;
 
+import cartes.Arme;
+
 public class Heros {
 	/**
 	 * Classe qui decrit le heros 
@@ -9,7 +11,7 @@ public class Heros {
 	
 	private String nom ; /* Le nom du heros */
 	private String pouvoir ; /* Le pouvoir specifique a chaque heros */
-	private String arme ; /* L'arme specifique a chaque heros */ /***** a modifier quand on va creer la classe arme ******/
+	private Arme arme ; /* L'arme specifique a chaque heros */ /***** a modifier quand on va creer la classe arme ******/
 	private int pointDeVie ; /* Les points de vie qu' a le heros */
 	private int coutMana ; /* Le cout du manna qu'a le heros */
 	
@@ -22,7 +24,7 @@ public class Heros {
 	 * @param pointDeVie
 	 * @param coutManna
 	 */
-	public Heros (String nom, String pouvoir, String arme, int pointDeVie , int coutMana) { /* Modifier le type d arme ici aussi */
+	public Heros (String nom, String pouvoir, Arme arme, int pointDeVie , int coutMana) { /* Modifier le type d arme ici aussi */
 		this.nom = nom ;
 		this.pouvoir = pouvoir ;
 		this.arme = arme ; 
@@ -74,47 +76,47 @@ public class Heros {
 			switch (numeroHeros) {
 			/* Pour la partie 2 on ne gère pas encore les armes, donc on met que les "" */
 			case "1":
-                heros = new Heros("Chevalier de la mort", "Explosion de glace", "", 30, 2);
+                heros = new Heros("Chevalier de la mort", "Explosion de glace", null, 30, 2);
                 herosValide = true;
                 break;
             case "2":
-            	heros = new Heros("Chasseur de démons", "Frappe du chaos","", 30, 2);
+            	heros = new Heros("Chasseur de démons", "Frappe du chaos",null, 30, 2);
             	herosValide = true;
                 break;
             case "3":
-            	heros = new Heros("Druide", "Croissance sauvage","", 30, 2);
+            	heros = new Heros("Druide", "Croissance sauvage",null, 30, 2);
             	herosValide = true;
                 break;
             case "4":
-            	heros = new Heros("Chasseur", "Tir précis","", 30, 2);
+            	heros = new Heros("Chasseur", "Tir précis",null, 30, 2);
             	herosValide = true;
                 break;
             case "5":
-            	heros = new Heros("Mage", "Boule de feu","", 30, 2);
+            	heros = new Heros("Mage", "Boule de feu",null, 30, 2);
             	herosValide = true;
                 break;
             case "6":
-            	heros = new Heros("Paladin", "Renfort divin","", 30, 2);
+            	heros = new Heros("Paladin", "Renfort divin",null, 30, 2);
             	herosValide = true;
                 break;
             case "7":
-            	heros = new Heros("Prêtre", "Soins sacrés","", 30, 2);
+            	heros = new Heros("Prêtre", "Soins sacrés",null, 30, 2);
             	herosValide = true;
                 break;
             case "8":
-            	heros = new Heros("Voleur", "Attaque furtive","", 30, 2);
+            	heros = new Heros("Voleur", "Attaque furtive",null, 30, 2);
             	herosValide = true;
                 break;
             case "9":
-            	heros = new Heros("Chaman", "Totem de feu","", 30, 2);
+            	heros = new Heros("Chaman", "Totem de feu",null, 30, 2);
             	herosValide = true;
                 break;
             case "10":
-            	heros = new Heros("Démoniste", "Lien démoniaque","", 30, 2);
+            	heros = new Heros("Démoniste", "Lien démoniaque",null, 30, 2);
             	herosValide = true;
                 break;
             case "11":
-            	heros = new Heros("Guerrier", "Armure +2","", 30, 2);
+            	heros = new Heros("Guerrier", "Armure +2",null, 30, 2);
             	herosValide = true;
                 break;
 			}
@@ -124,11 +126,30 @@ public class Heros {
 		
 	}
 	
-	///
-	public void soigner(int quantite) {
-	    this.pointDeVie += quantite;
-	    System.out.println(nom + " récupère " + quantite + " points de vie. PV actuels : " + pointDeVie);
+	/**
+	 * Methode qui permet d attribuer une arme a un joueur 
+	 */
+	public void equiperArme (Arme arme) {
+		if (this.arme != null) {
+			// Si le joueur est deja equipe d une arme //
+			System.out.println("La nouvelle arme est : " + this.arme.getNom());
+		}
+		this.arme = arme ; 
+		arme.jouer();
 	}
-
+	/**
+	 * Methode qui permet d attaquer l adverssaire avec l arme 
+	 */
+	public void attaquer() {
+		if (arme!=null) {
+			arme.utiliser();
+			if (arme.getDurabilite()<=0) {
+				// Si la durabilite atteint le 0, elle est detruite //
+				arme = null ;
+			}
+			
+		}
+	}
+	
 
 }

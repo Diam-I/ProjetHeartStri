@@ -24,33 +24,12 @@ public class Sort extends Carte{
 	public void afficher() {
 		
 	}
+	@Override
+	public void utiliser() {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	///
-	 public void appliquerEffet(Heros cible) {
-	        if (effet.equals("degat")) {
-	            cible.recevoirDegat(valeur);
-	        } else if (effet.equals("soin")) {
-	            cible.soigner(valeur);
-	        }
-	    }
-
-	    public void appliquerEffet(Serviteur cible) {
-	        if (effet.equals("degat")) {
-	            cible.recevoirDegat(valeur);
-	        } else if (effet.equals("soin")) {
-	            // Tu peux faire une méthode soigner dans Serviteur si tu veux
-	            System.out.println(cible.getNom() + " est soigné de " + valeur + " points.");
-	            // Remets de la vie ici (si tu limites à une valeur max)
-	        } else if (effet.equals("boost")) {
-	            System.out.println(cible.getNom() + " est boosté de " + valeur + " points d'attaque.");
-	            // Crée un setAttaque() ou un modifierAttaque() dans Serviteur
-	        }
-	    }
-		@Override
-		public void utiliser() {
-			// TODO Auto-generated method stub
-			
-		}
-	    
+	
 	    
 }

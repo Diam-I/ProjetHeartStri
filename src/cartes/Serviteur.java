@@ -38,6 +38,9 @@ public class Serviteur extends Carte {
         System.out.println("Pouvoir spécial: " + pouvoirSpecial);
     }
 
+    public void setAttaque(int attaque) {
+    	this.attaque = attaque ;
+    }
     public void recevoirDegat(int degat) {
         //  methode qui permet de recevoir des degats
         this.vie -= degat; // On soustrait les degats à la vie du serviteur
@@ -59,6 +62,13 @@ public class Serviteur extends Carte {
         this.recevoirDegat(serviteur.attaque);
     }
 
+    /**
+	 * Methode qui permet de soigner le serviteur
+	 * @param soin
+	 */
+	public void soigner(int soin) {
+		this.vie += soin ;
+	}
     @Override
     public String toString() {
         //  methode qui retourne une chaine de caractere qui contient le nom, le cout de mana, la vie et l'attaque du serviteur
