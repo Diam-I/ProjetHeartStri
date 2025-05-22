@@ -8,9 +8,19 @@ import joueur.Joueur;
 
 public class GestionnaireSauvegarde {
 
+    private static final String DOSSIER_SAUVEGARDE = "src/sauvegardes/";
+
+    // Utilitaire pour préfixer le chemin si besoin
+    private static String cheminComplet(String nomFichier) {
+        if (nomFichier.startsWith(DOSSIER_SAUVEGARDE)) {
+            return nomFichier;
+        }
+        return DOSSIER_SAUVEGARDE + nomFichier;
+    }
+
     // Sauvegarder un deck dans un fichier texte
     public static void sauvegarderDeck(Deck deck, String nomFichier) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomFichier))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminComplet(nomFichier)))) {
             for (Carte carte : deck.getCartes()) {
                 if (carte instanceof cartes.Serviteur) {
                     cartes.Serviteur s = (cartes.Serviteur) carte;
@@ -30,7 +40,7 @@ public class GestionnaireSauvegarde {
     // Charger un deck depuis un fichier texte
     public static Deck chargerDeck(String nomFichier) throws IOException {
         Deck deck = new Deck();
-        try (BufferedReader reader = new BufferedReader(new FileReader(nomFichier))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(cheminComplet(nomFichier)))) {
             String ligne;
             while ((ligne = reader.readLine()) != null) {
                 String[] parts = ligne.split(",");
@@ -62,7 +72,7 @@ public class GestionnaireSauvegarde {
 
     // Sauvegarder l’état d’une partie (exemple simplifié)
     public static void sauvegarderPartie(Joueur joueur1, Joueur joueur2, int numeroTour, String nomFichier) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nomFichier))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cheminComplet(nomFichier)))) {
             oos.writeObject(joueur1);
             oos.writeObject(joueur2);
             oos.writeInt(numeroTour);
@@ -71,7 +81,7 @@ public class GestionnaireSauvegarde {
 
     // Charger l’état d’une partie (exemple simplifié)
     public static Object[] chargerPartie(String nomFichier) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomFichier))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(cheminComplet(nomFichier)))) {
             Joueur joueur1 = (Joueur) ois.readObject();
             Joueur joueur2 = (Joueur) ois.readObject();
             int numeroTour = ois.readInt();

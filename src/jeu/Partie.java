@@ -1,5 +1,6 @@
 package jeu;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
@@ -56,73 +57,78 @@ public class Partie implements Serializable {
 	 * Methode qui permet de demmarer la partie et de laisser chacun des deux joueurs choisir leur deck et heros 
 	 */
 	public void demarrer() {
-		System.out.println("Début de la partie !");
-		
-		System.out.println("Joueur 1 c'est à vous !! ");
-		/* Demander au joueur 1 de choisir son heros */
-		Heros herosJoueur1 = Heros.choisirHeros();
-		joueur1.setHeros(herosJoueur1); // Affecter le heros au joueur 1
+        System.out.println("Début de la partie !");
+        System.out.println("Joueur 1 c'est à vous !! ");
+        Heros herosJoueur1 = Heros.choisirHeros();
+        joueur1.setHeros(herosJoueur1);
 
-		/* Demander au joueur 2 de choisir son heros */
-		System.out.println("Joueur 2 c'est à vous !! ");	
-		Heros herosJoueur2 = Heros.choisirHeros();
-		joueur2.setHeros(herosJoueur2); // Affecter le heros au joueur 2
-		/* Afficher les heros choisis par les deux joueurs */
-		System.out.println("Joueur 1 : " + joueur1.getNom() + " a choisi le héros " + herosJoueur1.getNom());
-		System.out.println("Joueur 2 : " + joueur2.getNom() + " a choisi le héros " + herosJoueur2.getNom());
-		
-		
-		Deck deck1 = Deck.genererDeck();
-		Deck deck2 = Deck.genererDeck(); // Créer un nouveau deck pour le joueur2
-		
-		/* Demander au joueur 1 de piocher 3 cartes de son deck */
-		for (int i=0 ; i<3 ; i++) {
-			joueur1.piocherCarte(deck1); // Piocher une carte du deck pour le joeur 1
-		}		
-		
-		/* Demander au joueur 2 de piocher 4 cartes de son deck */
-		for (int i=0 ; i<4 ; i++) {
-			joueur2.piocherCarte(deck2); // Piocher une carte du deck pour le joeur 2
-		}
-		
-		/* Initialiser le joueur actuel au joueur 1 */
-		joueurActuel = joueur1 ;
-		Joueur joueurAdverse = joueur2 ;
-		/* Les 2 joueurs s affrontent tant qu'aucun heros n a un point de vie < 0 */ 
-		while (!finPartie()) {
-			System.out.println("C'est le tour numéro " + numeroTour + " : " + joueurActuel.getNom() + " joue.");
-			//piocher une carte 
-			if (joueurActuel == joueur1) {
-				joueurActuel.piocherCarte(deck1);
-			} else {
-				joueurActuel.piocherCarte(deck2);
-			}
+        System.out.println("Joueur 2 c'est à vous !! ");	
+        Heros herosJoueur2 = Heros.choisirHeros();
+        joueur2.setHeros(herosJoueur2);
+        System.out.println("Joueur 1 : " + joueur1.getNom() + " a choisi le héros " + herosJoueur1.getNom());
+        System.out.println("Joueur 2 : " + joueur2.getNom() + " a choisi le héros " + herosJoueur2.getNom());
+        
+        Deck deck1 = Deck.genererDeck();
+        Deck deck2 = Deck.genererDeck();
+        
+        for (int i=0 ; i<3 ; i++) {
+            joueur1.piocherCarte(deck1);
+        }		
+        for (int i=0 ; i<4 ; i++) {
+            joueur2.piocherCarte(deck2);
+        }
+        
+        joueurActuel = joueur1 ;
+        bouclePartie(deck1, deck2);
+    }
+
+	/**
+	 * Reprend une partie sauvegardée (pas de re-choix, on continue)
+	 */
+	public void reprendrePartie() {
+        System.out.println("Reprise de la partie !");
+        // Les decks doivent être ceux déjà utilisés, à adapter si tu les sauvegardes aussi
+        Deck deck1 = new Deck(); // À remplacer par le deck sauvegardé si besoin
+        Deck deck2 = new Deck();
+        bouclePartie(deck1, deck2);
+    }
+
+	/**
+	 * Boucle principale de la partie (utilisée par les deux méthodes)
+	 */
+	private void bouclePartie(Deck deck1, Deck deck2) {
+        Joueur joueurAdverse = (joueurActuel == joueur1) ? joueur2 : joueur1;
+        Scanner scanner = new Scanner(System.in);
+
+        while (!finPartie()) {
+            System.out.println("C'est le tour numéro " + numeroTour + " : " + joueurActuel.getNom() + " joue.");
+            System.out.println("Tapez 's' pour sauvegarder et quitter, ou appuyez sur Entrée pour continuer.");
+            String choix = scanner.nextLine();
+            if (choix.equalsIgnoreCase("s")) {
+                System.out.print("Nom du fichier de sauvegarde : ");
+                String nomFichier = scanner.nextLine();
+                try {
+                    GestionnaireSauvegarde.sauvegarderPartie(joueur1, joueur2, numeroTour, nomFichier);
+                    System.out.println("Partie sauvegardée dans " + nomFichier + ". Fin de la partie.");
+                } catch (IOException e) {
+                    System.out.println("Erreur lors de la sauvegarde : " + e.getMessage());
+                }
+                return;
+            }
+
+            if (joueurActuel == joueur1) {
+                joueurActuel.piocherCarte(deck1);
+            } else {
+                joueurActuel.piocherCarte(deck2);
+            }
 
 			// Jouer un tour
         	Tour.jouerTour(joueurActuel, joueurAdverse);
-
-			// Incrémenter le mana
+			/* Incrementer le nombre de mana du hero si il est < 10 */
 			Heros herosJoueurActuelle = joueurActuel.getHeros() ;
 			if (herosJoueurActuelle.getCoutMana() < 10) {
 				herosJoueurActuelle.incrementerMana();
 			}
-
-			// Condition de blocage : plus de cartes en main, plus de serviteurs, deck vide
-			boolean joueur1Bloque = deck1.estVide() && joueur1.getMain().isEmpty() && joueur1.getServiteurs().isEmpty();
-			boolean joueur2Bloque = deck2.estVide() && joueur2.getMain().isEmpty() && joueur2.getServiteurs().isEmpty();
-			if (joueur1Bloque && joueur2Bloque) {
-				System.out.println("La partie est terminée, égalité !");
-				return;
-			}
-
-			 // Condition de blocage : plus de serviteurs, deck vide, mais main non vide ET aucune carte jouable
-			boolean joueur1PlusJouable = deck1.estVide() && joueur1.getServiteurs().isEmpty() && !peutJouerCarte(joueur1);
-			boolean joueur2PlusJouable = deck2.estVide() && joueur2.getServiteurs().isEmpty() && !peutJouerCarte(joueur2);
-			if (joueur1PlusJouable && joueur2PlusJouable) {
-				System.out.println("La partie est terminée, égalité (plus aucune carte jouable) !");
-				return;
-			}
-
 			// Passer au joueur suivant
 			Joueur temp = joueurActuel;
 			joueurActuel = joueurAdverse;
@@ -136,16 +142,6 @@ public class Partie implements Serializable {
 		} else {
 			System.out.println(joueur1.getNom() + " a gagné la partie !");
 		}
-	}
-
-	private boolean peutJouerCarte(Joueur joueur) {
-		int mana = joueur.getHeros().getCoutMana();
-		for (Carte carte : joueur.getMain()) {
-			if (carte.getCoutMana() <= mana) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
 
