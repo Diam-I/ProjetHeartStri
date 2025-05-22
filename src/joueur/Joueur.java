@@ -118,4 +118,12 @@ public class Joueur implements Serializable {
 		// Retourne le héros du joueur
 		return heros;
 	}
+
+    public void ajouterServiteur(cartes.Serviteur serviteur) {
+        this.serviteurs.add(serviteur);
+    }
+
+    public void retirerCarteMain(cartes.Carte carte) {
+        this.main.remove(carte);
+    }
 }

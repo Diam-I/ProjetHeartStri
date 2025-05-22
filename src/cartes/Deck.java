@@ -40,6 +40,10 @@ public class Deck implements Serializable {
 		return cartes; // On retourne la liste des cartes du deck
 	}
 	
+	public boolean estVide() {
+	    return cartes.isEmpty();
+	}
+	
 	/**
 	 * Methode qui permet de generer un deck avec des cartes legendaires
 	 * @return le deck genere
@@ -53,12 +57,27 @@ public class Deck implements Serializable {
 		        while ((ligne = br.readLine()) != null) {
 		            String[] parts = ligne.split(",");
 		            if (parts.length == 5) {
+		                // Serviteur
 		                String nom = parts[0].trim();
 		                int cout = Integer.parseInt(parts[1].trim());
 		                int vie = Integer.parseInt(parts[2].trim());
 		                int attaque = Integer.parseInt(parts[3].trim());
 		                String pouvoir = parts[4].trim();
-		                cartes.add(new Serviteur(nom, cout, vie, attaque, pouvoir));
+		                deck.ajouterCarte(new Serviteur(nom, cout, vie, attaque, pouvoir));
+		            } else if (parts.length == 4 && parts[2].matches("\\d+") && parts[3].matches("\\d+")) {
+		                // Arme (nom, cout, degats, durabilite)
+		                String nom = parts[0].trim();
+		                int cout = Integer.parseInt(parts[1].trim());
+		                int degats = Integer.parseInt(parts[2].trim());
+		                int durabilite = Integer.parseInt(parts[3].trim());
+		                deck.ajouterCarte(new Arme(nom, cout, degats, durabilite));
+		            } else if (parts.length == 4) {
+		                // Sort (nom, cout, effet, valeur)
+		                String nom = parts[0].trim();
+		                int cout = Integer.parseInt(parts[1].trim());
+		                String effet = parts[2].trim();
+		                int valeur = Integer.parseInt(parts[3].trim());
+		                deck.ajouterCarte(new Sort(nom, cout, effet, valeur));
 		            }
 		        }
 		    } catch (IOException e) {

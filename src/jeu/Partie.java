@@ -100,11 +100,29 @@ public class Partie implements Serializable {
 
 			// Jouer un tour
         	Tour.jouerTour(joueurActuel, joueurAdverse);
-			/* Incrementer le nombre de mana du hero si il est < 10 */
+
+			// Incrémenter le mana
 			Heros herosJoueurActuelle = joueurActuel.getHeros() ;
 			if (herosJoueurActuelle.getCoutMana() < 10) {
 				herosJoueurActuelle.incrementerMana();
 			}
+
+			// Condition de blocage : plus de cartes en main, plus de serviteurs, deck vide
+			boolean joueur1Bloque = deck1.estVide() && joueur1.getMain().isEmpty() && joueur1.getServiteurs().isEmpty();
+			boolean joueur2Bloque = deck2.estVide() && joueur2.getMain().isEmpty() && joueur2.getServiteurs().isEmpty();
+			if (joueur1Bloque && joueur2Bloque) {
+				System.out.println("La partie est terminée, égalité !");
+				return;
+			}
+
+			 // Condition de blocage : plus de serviteurs, deck vide, mais main non vide ET aucune carte jouable
+			boolean joueur1PlusJouable = deck1.estVide() && joueur1.getServiteurs().isEmpty() && !peutJouerCarte(joueur1);
+			boolean joueur2PlusJouable = deck2.estVide() && joueur2.getServiteurs().isEmpty() && !peutJouerCarte(joueur2);
+			if (joueur1PlusJouable && joueur2PlusJouable) {
+				System.out.println("La partie est terminée, égalité (plus aucune carte jouable) !");
+				return;
+			}
+
 			// Passer au joueur suivant
 			Joueur temp = joueurActuel;
 			joueurActuel = joueurAdverse;
@@ -118,6 +136,16 @@ public class Partie implements Serializable {
 		} else {
 			System.out.println(joueur1.getNom() + " a gagné la partie !");
 		}
+	}
+
+	private boolean peutJouerCarte(Joueur joueur) {
+		int mana = joueur.getHeros().getCoutMana();
+		for (Carte carte : joueur.getMain()) {
+			if (carte.getCoutMana() <= mana) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
 

@@ -131,13 +131,14 @@ public class Heros implements Serializable {
 	/**
 	 * Methode qui permet d attribuer une arme a un joueur 
 	 */
-	public void equiperArme (Arme arme) {
-		if (this.arme != null) {
-			// Si le joueur est deja equipe d une arme //
-			System.out.println("La nouvelle arme est : " + this.arme.getNom());
-		}
-		this.arme = arme ; 
-		arme.jouer();
+	public void equiperArme(Arme arme) {
+	    if (this.arme != null) {
+	        System.out.println("L'arme " + this.arme.getNom() + " est remplacée par " + arme.getNom() + ".");
+	    } else {
+	        System.out.println("Vous équipez l'arme " + arme.getNom() + ".");
+	    }
+	    this.arme = arme;
+	    arme.jouer();
 	}
 	/**
 	 * Methode qui permet d attaquer l adverssaire avec l arme 
@@ -177,5 +178,17 @@ public class Heros implements Serializable {
 	    }
 	}
 	
+	public Arme getArme() {
+	    return arme;
+	}
+
+	public void setArme(Arme arme) {
+	    this.arme = arme;
+	}
+
+	public void soigner(int soin) {
+	    this.pointDeVie += soin;
+	    System.out.println(this.nom + " est soigné de " + soin + " points !");
+	}
 
 }
