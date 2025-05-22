@@ -43,7 +43,7 @@ public class Deck  {
 	 * Methode qui permet de generer un deck avec des cartes legendaires
 	 * @return le deck genere
 	 */
-	public static Deck genererDeckAvecLegendaires() {
+	public static Deck genererDeck() {
 		 Deck deck = new Deck();
 		 List<Serviteur> cartes = new ArrayList<>();
 		 // Récupèrer les cartes du fichiers qui contient toutes les cartes //
