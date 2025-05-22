@@ -62,7 +62,7 @@ public class Partie implements Serializable {
 
         System.out.println("Joueur 2 c'est à vous !! ");	
         Heros herosJoueur2 = Heros.choisirHeros();
-        joueur2.setHeros(herosJoueur2);
+        this.joueur2.setHeros(herosJoueur2);
         System.out.println("Joueur 1 : " + joueur1.getNom() + " a choisi le héros " + herosJoueur1.getNom());
         System.out.println("Joueur 2 : " + joueur2.getNom() + " a choisi le héros " + herosJoueur2.getNom());
         
