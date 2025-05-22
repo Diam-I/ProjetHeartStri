@@ -122,74 +122,26 @@ public class Partie implements Serializable {
                 joueurActuel.piocherCarte(deck2);
             }
 
-            Tour.jouerTour(joueurActuel, joueurAdverse);
-            Heros herosJoueurActuelle = joueurActuel.getHeros();
-            if (herosJoueurActuelle.getCoutMana() < 10) {
-                herosJoueurActuelle.incrementerMana();
-            }
-            Joueur temp = joueurActuel;
-            joueurActuel = joueurAdverse;
-            joueurAdverse = temp;
-            numeroTour++;
-        }
-        if (joueur1.getHeros().getPointDeVie() <= 0) {
-            System.out.println(joueur2.getNom() + " a gagné la partie !");
-        } else {
-            System.out.println(joueur1.getNom() + " a gagné la partie !");
-        }
-    }
-	
-	public static void menuPrincipal() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Bienvenue dans HeartStri !");
-        System.out.println("1 - Nouvelle partie");
-        System.out.println("2 - Charger une partie");
-        System.out.println("3 - Charger un deck");
-        System.out.print("Votre choix : ");
-        String choix = scanner.nextLine();
-
-        if (choix.equals("1")) {
-            System.out.print("Nom du joueur 1 : ");
-            String nom1 = scanner.nextLine();
-            System.out.print("Nom du joueur 2 : ");
-            String nom2 = scanner.nextLine();
-            Joueur joueur1 = new Joueur(nom1);
-            Joueur joueur2 = new Joueur(nom2);
-            Plateau plateau = new Plateau();
-            Partie partie = new Partie(joueur1, joueur2, 1, joueur1, plateau);
-            partie.demarrer();
-        } else if (choix.equals("2")) {
-            System.out.print("Nom du fichier de sauvegarde : ");
-            String fichier = scanner.nextLine();
-            // Ajoute le dossier si besoin
-            String cheminFichier = "src/sauvegardes/" + fichier;
-            try {
-                Object[] etat = GestionnaireSauvegarde.chargerPartie(cheminFichier);
-                Joueur joueur1 = (Joueur) etat[0];
-                Joueur joueur2 = (Joueur) etat[1];
-                int numeroTour = (int) etat[2];
-                Plateau plateau = new Plateau();
-                Partie partie = new Partie(joueur1, joueur2, numeroTour, joueur1, plateau);
-                partie.reprendrePartie();
-            } catch (Exception e) {
-                System.out.println("Erreur lors du chargement : " + e.getMessage());
-            }
-        } else if (choix.equals("3")) {
-            // Charger un deck
-            System.out.print("Nom du fichier du deck : ");
-            String fichierDeck = scanner.nextLine();
-            try {
-                Deck deck = GestionnaireSauvegarde.chargerDeck(fichierDeck);
-                System.out.println("Deck chargé avec succès !");
-                for (Carte carte : deck.getCartes()) {
-                    System.out.println("- " + carte.getNom());
-                }
-            } catch (Exception e) {
-                System.out.println("Erreur lors du chargement du deck : " + e.getMessage());
-            }
-        } else {
-            System.out.println("Choix invalide.");
-        }
-    }
+			// Jouer un tour
+        	Tour.jouerTour(joueurActuel, joueurAdverse);
+			/* Incrementer le nombre de mana du hero si il est < 10 */
+			Heros herosJoueurActuelle = joueurActuel.getHeros() ;
+			if (herosJoueurActuelle.getCoutMana() < 10) {
+				herosJoueurActuelle.incrementerMana();
+			}
+			// Passer au joueur suivant
+			Joueur temp = joueurActuel;
+			joueurActuel = joueurAdverse;
+			joueurAdverse = temp;
+			numeroTour++;
+			
+		}
+		// Fin de la partie
+		if (joueur1.getHeros().getPointDeVie() <= 0) {
+			System.out.println(joueur2.getNom() + " a gagné la partie !");
+		} else {
+			System.out.println(joueur1.getNom() + " a gagné la partie !");
+		}
+	}
 }
 

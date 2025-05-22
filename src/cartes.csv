@@ -1,74 +1,3 @@
-nom,coutMana,attaque,vie,special
-Ragnaros,8,8,8,Aucun
-Sylvanas Coursevent,6,5,5,Vol de vie
-Tirion Fordring,8,6,6,Provocation
-Ysera,9,4,12,Rêve
-Le Champion Envahi,5,6,6,Charge
-Alexstrasza,9,8,8,Soigne ou blesse
-Deathwing,10,12,12,Destruction
-Malygos,9,4,12,Boost magique
-Nozdormu,9,8,8,Accélération
-Nefarian,9,8,8,Sorts volés
-Onyxia,9,8,8,Invocation
-Grommash Hurlenfer,8,4,9,Rage
-Cairne Sabot-de-Sang,6,4,5,Invocation
-Harrison Jones,5,5,4,Destruction arme
-Baron Geddon,7,7,5,Explosion
-Illidan Hurlorage,6,7,5,Invocation
-Chillwind Yeti,4,4,5,Aucun
-Loup Alpha,2,2,2,Buff
-Ogre Brutal,6,6,7,Attaque aléatoire
-Garde de Baie-du-Butin,3,3,3,Provocation
-Golem des Moissons,3,3,3,Invocation
-Sanglier Brochepierre,1,1,1,Charge
-Goule Déchaînée,4,3,5,Effet mort
-Murloc Chasseur,1,2,1,Aucun
-Chef de Guerre Murloc,3,3,3,Buff Murloc
-Écuyer du Temple,1,1,2,Bouclier divin
-Mage de Dalaran,4,2,4,Boost magique
-Moine Pandaren,5,4,7,Soin
-Invocateur Sinistre,4,3,5,Invocation
-Tigre Strangleronce,5,5,5,Furtivité
-Fée Lumineuse,2,1,4,Soin
-Loup Fantôme,3,3,2,Charge
-Ours Grizzly,3,3,4,Provocation
-Garde de Hurlevent,7,6,6,Cri de guerre
-Élémentaire de Feu,6,6,5,Explosion
-Serpent Venimeux,2,2,1,Poison
-Gardien des Anciens,5,4,6,Bouclier divin
-Archer d'Élite,1,1,1,Tir à distance
-Guerrier Orc,4,4,3,Charge
-Chevalier du Soleil,3,3,3,Vol de vie
-Géant des Montagnes,12,8,8,Coût réduit
-Géant de Lave,20,8,8,Coût réduit
-Apprentie du Sorcier,2,3,2,Sorts réduits
-Pyromancien Fou,6,7,3,Explosion
-Berserker Amani,2,2,3,Rage
-Lanceur de Hache,3,3,3,Lancer de hache
-Sergent Brise-Roc,2,2,2,Aucun
-Soldat de la Lumière,2,2,1,Aucun
-Érudit du Kirin Tor,3,4,3,Boost
-Ancien du Savoir,7,5,5,Pioche
-Totem de Soin,1,0,2,Soin
-Totem de Foudre,2,0,2,Boost attaque
-Chasseur du Néant,5,5,5,Provocation
-Démoniste Déchaîné,4,4,4,Effet sacrificiel
-Mande-flammes,5,4,4,Bouclier divin
-Clerc de Comté-du-Nord,1,1,3,Pioche
-Furie du Vent,4,3,3,Furie du vent
-Gardien du Trésor,2,2,2,Aucun
-Guetteur Ancien,2,4,5,Ne peut pas attaquer
-Dragonnet Rouge,2,2,3,Souffle de feu
-Dragonnet Bleu,2,2,3,Bouclier magique
-Chaman de la Terre,4,3,6,Bouclier divin
-Invocateur des Ténèbres,4,4,3,Provocation
-Esprit Ancestral,3,0,3,Effet de résurrection
-Zélote Fanatique,3,3,2,Buff
-Garde du Temple,2,2,3,Provocation
-Veilleur Silencieux,3,2,5,Furtivité
-Maître-lame blessé,3,4,7,Blessure
-Chevaucheur de Loup,3,3,1,Charge
-Chef de Raid,3,2,2,Buff
 Protecteur Main-d'Argent,2,2,2,Bouclier divin
 Capitaine Barbe-de-Bronze,4,4,4,Boost alliés
 Géant de Chair,12,8,8,Coût réduit
@@ -99,3 +28,19 @@ Nat Pagle,2,0,4,Pioche
 Hemet Nesingwary,5,6,3,Tue bête
 Troggzor,7,6,6,Contrôle
 Iron Juggernaut,6,6,5,Bombe dans deck
+Épée du Destin,3,4,2
+Boule de Feu,4,degat,6
+Soin Rapide,2,soin,4
+Épée du Destin,3,4,2
+Hache de Guerre,2,3,3
+Lame du Chaos,5,6,1
+Arc Elfique,4,5,2
+Marteau du Tonnerre,6,7,2
+Dagues Jumelles,3,2,4
+Boule de Feu,4,6,degat,
+Soin Rapide,2,4,soin,
+Explosion Arcanique,3,3,degat,
+Colère Divine,5,7,degat,
+Bénédiction Sacrée,2,3,soin,
+Météore,6,10,degat,
+Barrière de Glace,3,0,bouclier,

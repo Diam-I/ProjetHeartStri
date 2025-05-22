@@ -28,95 +28,32 @@ public class Tour {
 			}
 			System.err.println("Veuillez choisir une carte que vous voulez activer (mettre sur le plateau) : \n");
 			Scanner scanner = new Scanner(System.in);
-			int choix = scanner.nextInt();
+			int choixCarte = scanner.nextInt();
 			
 			// Vérifier que le choix est valide //
-			if (choix >= 0 && choix<=main.size()) {
-				// Vérifier que la carte est un serviteur //
-				Carte carte = main.get(choix-1);
-				if (carte instanceof Serviteur) {
-					Serviteur serviteurPlace = (Serviteur) carte;
-					joueurActuel.ajouteServiteur(serviteurPlace,choix-1);
+			if (choixCarte >= 0 && choixCarte <= main.size()) {
+				Carte carteChoisie = joueurActuel.getMain().get(choixCarte - 1);
+
+				if (carteChoisie instanceof cartes.Serviteur) {
+				    // Ajouter le serviteur sur le plateau
+				    joueurActuel.ajouterServiteur((cartes.Serviteur) carteChoisie);
+				    System.out.println("Le serviteur " + carteChoisie.getNom() + " a été ajouté à la liste des serviteurs de " + joueurActuel.getNom() + ".");
+				} else if (carteChoisie instanceof cartes.Arme) {
+				    joueurActuel.getHeros().equiperArme((cartes.Arme) carteChoisie);
+				    System.out.println("Le héros " + joueurActuel.getNom() + " équipe l'arme " + carteChoisie.getNom() + ".");
+				} else if (carteChoisie instanceof cartes.Sort) {
+				    // Ici tu dois appliquer l'effet du sort (à adapter selon ton implémentation)
+				    cartes.Sort sort = (cartes.Sort) carteChoisie;
+				    if (sort.getEffet().equalsIgnoreCase("degat")) {
+				        joueurAdverse.getHeros().recevoirDegat(sort.getValeur());
+				        System.out.println("Le sort inflige " + sort.getValeur() + " dégâts au héros adverse !");
+				    } else if (sort.getEffet().equalsIgnoreCase("soin")) {
+				        joueurActuel.getHeros().soigner(sort.getValeur());
+				        System.out.println("Le sort soigne votre héros de " + sort.getValeur() + " points !");
+				    }
+				    // Ajoute d'autres effets si besoin
 				}
-				// Si la carte est une arme //
-				else if (carte instanceof Arme){
-					// Equiper le joueur avec cette arme //
-					joueurActuel.getHeros().equiperArme((Arme) carte);
-				}
-				else if (carte instanceof Sort) {
-					Sort sort = (Sort) carte ; 
-					if (sort.getEffet().equals("soin")) {
-						// Le joueur doit choisir quel serviteur soigner //
-						System.out.println("Choisissez un serviteur à soigner :");
-						List<Serviteur> serviteurs = joueurActuel.getServiteurs();
-						for (int i = 0; i < serviteurs.size(); i++) {
-						    System.out.println((i + 1) + " - " + serviteurs.get(i).getNom() + " (" + serviteurs.get(i).getVie() + " Points de Vie)");
-						}
-						int serviteur  = scanner.nextInt();
-						scanner.nextLine(); 
-
-						if (serviteur >= 1 && serviteur <= serviteurs.size()) {
-						    Serviteur cible = serviteurs.get(serviteur - 1);
-						    cible.soigner(3); 
-						    System.out.println(cible.getNom() + " a été soigné !");
-						} else {
-						    System.out.println("Choix invalide.");
-						}
-					}
-					else if (sort.getEffet().equals("degat")) {
-						// Le joueur doit choisir quel serviteur attaquer //
-						System.out.println("Choisissez une cible pour le sort de dégâts :");
-						System.out.println("Héros adverse (" + joueurAdverse.getHeros().getPointDeVie() + " Points de Vie)");
-
-						List<Serviteur> serviteursAdverses = joueurAdverse.getServiteurs();
-						for (int i = 0; i < serviteursAdverses.size(); i++) {
-						    Serviteur serviteur = serviteursAdverses.get(i);
-						    System.out.println((i + 1) + " - " + serviteur.getNom() + " (" + serviteur.getVie() + " Points de Vie)");
-						}
-
-						int serviteur_cible = scanner.nextInt();
-						scanner.nextLine(); 
-						if (serviteur_cible == 0) {
-						    joueurAdverse.getHeros().recevoirDegat(3);
-						    System.out.println("Le héros adverse a subi 3 dégâts !"); ///// On doit le modifier plus tard !!!!!!!!!!!!!!!!!
-						} else if (serviteur_cible >= 1 && serviteur_cible <= serviteursAdverses.size()) {
-						    Serviteur cible = serviteursAdverses.get(serviteur_cible - 1);
-						    cible.recevoirDegat(3); /////////////
-						    System.out.println(cible.getNom() + " a subi 3 dégâts !"); /////////////////
-						} else {
-						    System.out.println("Choix invalide.");
-						}
-
-					}
-					else if (sort.getEffet().equals("boost")) {
-						// Le joueur doit choisir un serviteur a booster //
-						List<Serviteur> serviteurs = joueurActuel.getServiteurs();
-						if (serviteurs.isEmpty()) {
-						    System.out.println("Aucun serviteur à booster.");
-						} else {
-						    System.out.println("Choisissez un serviteur à booster :");
-						    for (int i = 0; i < serviteurs.size(); i++) {
-						        Serviteur s = serviteurs.get(i);
-						        System.out.println((i + 1) + " - " + s.getNom() + " (Attaque : " + s.getAttaque() + ", Points de Vie : " + s.getVie() + ")");
-						    }
-
-						    int serviteur_booster = scanner.nextInt();
-						    scanner.nextLine(); 
-
-						    if (serviteur_booster >= 1 && serviteur_booster <= serviteurs.size()) {
-						        Serviteur cible = serviteurs.get(serviteur_booster - 1);
-						        cible.setAttaque(cible.getAttaque() + 2); ///// A modifier !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-						        cible.recevoirDegat(-2); //// A modifier !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-						        System.out.println(cible.getNom() + " a été boosté (+2 Attaque, +2 PV)."); //// A modifier !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-						    } else {
-						        System.out.println("Choix invalide.");
-						    }
-						}
-
-					 }
-					joueurActuel.getMain().remove(carte); // Retirer la carte de la main après utilisation
-				}
-				
+				joueurActuel.retirerCarteMain(carteChoisie);
 			}
 			else {
 				System.out.println("Le choix de la carte est invalide !");
