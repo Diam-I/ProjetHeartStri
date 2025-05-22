@@ -1,7 +1,5 @@
 package test;
 import jeu.Partie;
-import jeu.Plateau;
-import joueur.Joueur;
 
 
 public class testFinal {

@@ -2,12 +2,10 @@ package jeu;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Scanner;
 
 import cartes.Carte;
 import cartes.Deck;
-import cartes.Serviteur;
 import joueur.Heros;
 import joueur.Joueur;
 
