@@ -103,5 +103,13 @@ public class Tour {
 				}
 			}
 	    }
+		
+		// Nouvelle phase : Utilisation du pouvoir héroïque //
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Voulez-vous utiliser le pouvoir héroïque ? (o/n)");
+		String reponse = scanner.nextLine();
+		if (reponse.equalsIgnoreCase("o")) {
+		    joueurActuel.getHeros().utiliserPouvoir(joueurActuel, joueurAdverse);
+		}
 	}
 }

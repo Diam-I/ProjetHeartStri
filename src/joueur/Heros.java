@@ -191,4 +191,57 @@ public class Heros implements Serializable {
 	    System.out.println(this.nom + " est soigné de " + soin + " points !");
 	}
 
+	public boolean utiliserPouvoir(Joueur lanceur, Joueur cible) {
+	    // Vérifie le coût en mana
+	    if (lanceur.getMana() < this.coutMana) {
+	        System.out.println("Pas assez de mana pour utiliser le pouvoir héroïque !");
+	        return false;
+	    }
+	    lanceur.utiliseMana(this.coutMana);
+
+	    switch (this.nom) {
+	        case "Chasseur":
+	            // Inflige 2 dégâts au héros adverse
+	            cible.recevoirDegat(2);
+	            System.out.println("Pouvoir du Chasseur : inflige 2 dégâts au héros adverse !");
+	            break;
+	        case "Druide":
+	            // Donne +1 attaque à un serviteur OU au héros (ici, on donne au héros)
+	            System.out.println("Pouvoir du Druide : +1 attaque ce tour (à implémenter selon ta logique d’attaque) !");
+	            // À adapter selon ta logique de combat
+	            break;
+	        case "Guerrier":
+	            // Donne 2 points d’armure (ici, on ajoute à la vie)
+	            lanceur.recevoirDegat(-2); // Soigne de 2 (ou gère une variable armure)
+	            System.out.println("Pouvoir du Guerrier : gagne 2 points d’armure !");
+	            break;
+	        case "Mage":
+	            // Inflige 1 dégât à un héros ou serviteur (ici, au héros adverse)
+	            cible.recevoirDegat(1);
+	            System.out.println("Pouvoir du Mage : inflige 1 dégât !");
+	            break;
+	        case "Paladin":
+	            // Invoque un serviteur 1/1 (à adapter selon ta classe Serviteur)
+	            cartes.Serviteur recrue = new cartes.Serviteur("Recrue de la Main d'Argent", 1, 1, 1, "");
+	            lanceur.ajouterServiteur(recrue);
+	            System.out.println("Pouvoir du Paladin : invoque une Recrue 1/1 !");
+	            break;
+	        case "Prêtre":
+	            // Soigne 2 points de vie au héros
+	            lanceur.getHeros().soigner(2);
+	            System.out.println("Pouvoir du Prêtre : soigne 2 points de vie !");
+	            break;
+	        case "Voleur":
+	            // Équipe une dague 1/2
+	            cartes.Arme dague = new cartes.Arme("Dague", 1, 1, 2);
+	            lanceur.getHeros().equiperArme(dague);
+	            System.out.println("Pouvoir du Voleur : équipe une dague 1/2 !");
+	            break;
+	        default:
+	            System.out.println("Pouvoir spécial non implémenté pour ce héros.");
+	            break;
+	    }
+	    return true;
+	}
+
 }
