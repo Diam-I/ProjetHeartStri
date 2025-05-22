@@ -113,7 +113,8 @@ public class Tour {
 						    }
 						}
 
-					}
+					 }
+					joueurActuel.getMain().remove(carte); // Retirer la carte de la main après utilisation
 				}
 				
 			}

@@ -150,6 +150,30 @@ public class Heros {
 			
 		}
 	}
+
+	public void attaquer(Heros cible) {
+	    if (arme != null) {
+	        cible.recevoirDegat(arme.getDegats());
+	        arme.utiliser();
+	        if (arme.getDurabilite() <= 0) {
+	            arme = null;
+	        }
+	    } else {
+	        System.out.println("Aucune arme équipée !");
+	    }
+	}
+
+	public void attaquer(cartes.Serviteur cible) {
+	    if (arme != null) {
+	        cible.recevoirDegat(arme.getDegats());
+	        arme.utiliser();
+	        if (arme.getDurabilite() <= 0) {
+	            arme = null;
+	        }
+	    } else {
+	        System.out.println("Aucune arme équipée !");
+	    }
+	}
 	
 
 }

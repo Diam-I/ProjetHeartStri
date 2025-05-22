@@ -26,8 +26,10 @@ public class Sort extends Carte{
 	}
 	@Override
 	public void utiliser() {
-		// TODO Auto-generated method stub
-		
+	    // Cette méthode devra recevoir la cible en paramètre pour être vraiment utile
+	    // Exemple d'utilisation générique (à adapter selon l'appel)
+	    System.out.println("Le sort " + getNom() + " est utilisé. Effet : " + effet);
+	    // Ici, il faudrait appliquer l'effet à la cible (serviteur ou héros)
 	}
 	
 	
