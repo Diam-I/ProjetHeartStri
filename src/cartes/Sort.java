@@ -1,7 +1,6 @@
 package cartes;
 
 
-import joueur.Heros;
 
 public class Sort extends Carte  {
 	private static final long serialVersionUID = 1L;

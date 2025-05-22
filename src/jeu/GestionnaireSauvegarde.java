@@ -1,7 +1,6 @@
 package jeu;
 
 import java.io.*;
-import java.util.List;
 import cartes.Carte;
 import cartes.Deck;
 import joueur.Joueur;

@@ -3,10 +3,8 @@ package jeu;
 import java.util.List;
 import java.util.Scanner;
 
-import cartes.Arme;
 import cartes.Carte;
 import cartes.Serviteur;
-import cartes.Sort;
 import joueur.Joueur;
 
 public class Tour {
