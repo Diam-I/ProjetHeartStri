@@ -77,15 +77,31 @@ public class Tour {
 	
 				serviteur.attaquer(joueurAdverse.getHeros());
 			} else {
-	
-				System.out.println(joueurActuel.getNom() + " attaque un serviteur adverse !");
-				Serviteur serviteur = joueurActuel.getServiteurs().get(0); // Exemple : premier serviteur
-				Serviteur cible = joueurAdverse.getServiteurs().get(0); // Exemple : premier serviteur adverse
-				serviteur.attaquer(cible);
-		
-				// Si le serviteur adverse est détruit, le retirer
-				if (cible.getVie() <= 0) {
-					joueurAdverse.retirerServiteur(cible);
+				Scanner scanner = new Scanner(System.in);
+				System.out.println("Choisissez le serviteur qui attaque :");
+				List<Serviteur> serviteursActuels = joueurActuel.getServiteurs();
+				for (int i = 0; i < serviteursActuels.size(); i++) {
+					System.out.println((i + 1) + " - " + serviteursActuels.get(i));
+				}
+				int choixAttaquant = scanner.nextInt() - 1;
+				Serviteur attaquant = serviteursActuels.get(choixAttaquant);
+
+				// Choix de la cible
+				System.out.println("Choisissez la cible :");
+				System.out.println("0 - Attaquer le héros adverse (" + joueurAdverse.getHeros().getNom() + ")");
+				List<Serviteur> serviteursAdverses = joueurAdverse.getServiteurs();
+				for (int i = 0; i < serviteursAdverses.size(); i++) {
+					System.out.println((i + 1) + " - " + serviteursAdverses.get(i));
+				}
+				int choixCible = scanner.nextInt();
+				if (choixCible == 0) {
+					attaquant.attaquer(joueurAdverse.getHeros());
+				} else {
+					Serviteur cible = serviteursAdverses.get(choixCible - 1);
+					attaquant.attaquer(cible);
+					if (cible.getVie() <= 0) {
+						joueurAdverse.retirerServiteur(cible);
+					}
 				}
 			}
 	    }
