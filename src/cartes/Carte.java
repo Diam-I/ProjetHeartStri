@@ -5,8 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public abstract class Carte {
+public abstract class Carte implements Serializable {
 	/*  
 	 * Classe abstraite qui représente une carte du jeu 
 	 * Cette carte peut être une arme, un serviteur ou un sort
@@ -44,6 +45,5 @@ public abstract class Carte {
 	
 	public abstract void utiliser(); // Methode abstraite qui sera redéfinie dans les classes filles (Serviteur, Sort, Arme) //	
 
-	
-
+	private static final long serialVersionUID = 1L;
 }

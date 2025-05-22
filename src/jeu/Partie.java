@@ -1,5 +1,6 @@
 package jeu;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,10 +10,11 @@ import cartes.Serviteur;
 import joueur.Heros;
 import joueur.Joueur;
 
-public class Partie {
+public class Partie implements Serializable {
 	/**
 	 * Classe qui represente une partie du jeu de HeartStone
 	 */
+	private static final long serialVersionUID = 1L;
 	private Joueur joueur1 ; /* Le premier joueur de la partie du jeu */
 	private Joueur joueur2 ; /* Le deuxieme joueur de la partie du jeu */
 	private int numeroTour ; /* Le numéro du tour actuel */
@@ -117,6 +119,5 @@ public class Partie {
 			System.out.println(joueur1.getNom() + " a gagné la partie !");
 		}
 	}
-}	
-		
-	
+}
+

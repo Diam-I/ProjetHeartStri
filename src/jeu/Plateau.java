@@ -1,11 +1,13 @@
 package jeu;
 
+import java.io.Serializable; 
 import java.util.List;
 
 import cartes.Serviteur;
 import joueur.Joueur;
 
-public class Plateau {
+public class Plateau implements Serializable { 
+    private static final long serialVersionUID = 1L; 
 	/**
 	 * Classe qui représente le plateau du jeu 
 	 */

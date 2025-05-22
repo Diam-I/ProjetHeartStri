@@ -1,12 +1,14 @@
 package joueur;
 
+import java.io.Serializable;
 import java.util.List;
 
 // Importation des classes nécessaires
 import cartes.*; // Importation de la classe Serviteur      
 import java.util.ArrayList; // Importation pour la liste des serviteurs
-public class Joueur {
+public class Joueur implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private String nom; // Nom du joueur
     private int mana; // Points de mana du joueur           
     private int vie; // Points de vie du joueur

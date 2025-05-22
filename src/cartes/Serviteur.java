@@ -1,8 +1,9 @@
 package cartes;
-
 import joueur.Heros;
 
-public class Serviteur extends Carte {
+
+public class Serviteur extends Carte  { 
+    private static final long serialVersionUID = 1L; 
     private int vie; // Vie du serviteur
     private int attaque; // Attaque du serviteur
     private String pouvoirSpecial; // Pouvoir du serviteur

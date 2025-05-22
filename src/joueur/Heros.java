@@ -1,10 +1,12 @@
 package joueur;
 
+import java.io.Serializable; 
 import java.util.Scanner;
 
 import cartes.Arme;
 
-public class Heros {
+public class Heros implements Serializable { 
+    private static final long serialVersionUID = 1L; 
 	/**
 	 * Classe qui decrit le heros 
 	 */

@@ -1,6 +1,8 @@
 package cartes;
 
+
 public class Arme extends Carte {
+	private static final long serialVersionUID = 1L;
 	private int degats ; 
 	private int durabilite ;
 
