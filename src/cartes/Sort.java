@@ -1,6 +1,6 @@
 package cartes;
 
-
+import java.util.List;
 
 public class Sort extends Carte  {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +31,11 @@ public class Sort extends Carte  {
 	    // Exemple d'utilisation générique (à adapter selon l'appel)
 	    System.out.println("Le sort " + getNom() + " est utilisé. Effet : " + effet);
 	    // Ici, il faudrait appliquer l'effet à la cible (serviteur ou héros)
+	}
+	@Override
+	public List<Carte> getServiteurs() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getServiteurs'");
 	}
 	
 	

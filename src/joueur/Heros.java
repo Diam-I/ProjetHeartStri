@@ -78,11 +78,11 @@ public class Heros implements Serializable {
 			switch (numeroHeros) {
 			/* Pour la partie 2 on ne gère pas encore les armes, donc on met que les "" */
 			case "1":
-                heros = new Heros("Chevalier de la mort", "Explosion de glace", null, 30, 2);
+                heros = new Heros("Chevalier de la mort", "Explosion de glace", null, 3, 2);
                 herosValide = true;
                 break;
             case "2":
-            	heros = new Heros("Chasseur de démons", "Frappe du chaos",null, 30, 2);
+            	heros = new Heros("Chasseur de démons", "Frappe du chaos",null, 3, 2);
             	herosValide = true;
                 break;
             case "3":
@@ -201,41 +201,48 @@ public class Heros implements Serializable {
 
 	    switch (this.nom) {
 	        case "Chasseur":
-	            // Inflige 2 dégâts au héros adverse
-	            cible.recevoirDegat(2);
+	            cible.getHeros().recevoirDegat(2);
 	            System.out.println("Pouvoir du Chasseur : inflige 2 dégâts au héros adverse !");
 	            break;
 	        case "Druide":
-	            // Donne +1 attaque à un serviteur OU au héros (ici, on donne au héros)
-	            System.out.println("Pouvoir du Druide : +1 attaque ce tour (à implémenter selon ta logique d’attaque) !");
-	            // À adapter selon ta logique de combat
+	            // Donne +1 attaque au héros ce tour (simplifié)
+	            System.out.println("Pouvoir du Druide : gagne +1 attaque ce tour (effet à implémenter selon ta logique) !");
 	            break;
 	        case "Guerrier":
-	            // Donne 2 points d’armure (ici, on ajoute à la vie)
-	            lanceur.recevoirDegat(-2); // Soigne de 2 (ou gère une variable armure)
+	            this.pointDeVie += 2;
 	            System.out.println("Pouvoir du Guerrier : gagne 2 points d’armure !");
 	            break;
 	        case "Mage":
-	            // Inflige 1 dégât à un héros ou serviteur (ici, au héros adverse)
-	            cible.recevoirDegat(1);
-	            System.out.println("Pouvoir du Mage : inflige 1 dégât !");
+	            cible.getHeros().recevoirDegat(1);
+	            System.out.println("Pouvoir du Mage : inflige 1 dégât au héros adverse !");
 	            break;
 	        case "Paladin":
-	            // Invoque un serviteur 1/1 (à adapter selon ta classe Serviteur)
 	            cartes.Serviteur recrue = new cartes.Serviteur("Recrue de la Main d'Argent", 1, 1, 1, "");
 	            lanceur.ajouterServiteur(recrue);
 	            System.out.println("Pouvoir du Paladin : invoque une Recrue 1/1 !");
 	            break;
 	        case "Prêtre":
-	            // Soigne 2 points de vie au héros
-	            lanceur.getHeros().soigner(2);
+	            this.pointDeVie += 2;
 	            System.out.println("Pouvoir du Prêtre : soigne 2 points de vie !");
 	            break;
 	        case "Voleur":
-	            // Équipe une dague 1/2
 	            cartes.Arme dague = new cartes.Arme("Dague", 1, 1, 2);
-	            lanceur.getHeros().equiperArme(dague);
+	            this.equiperArme(dague);
 	            System.out.println("Pouvoir du Voleur : équipe une dague 1/2 !");
+	            break;
+	        case "Chaman":
+	            System.out.println("Pouvoir du Chaman : invoque un totem (à implémenter) !");
+	            break;
+	        case "Démoniste":
+	            this.recevoirDegat(2);
+	            // Pioche d'une carte à implémenter si tu veux
+	            System.out.println("Pouvoir du Démoniste : pioche une carte et subit 2 dégâts (pioche non implémentée) !");
+	            break;
+	        case "Chasseur de démons":
+	            System.out.println("Pouvoir du Chasseur de démons : +1 attaque ce tour (à implémenter) !");
+	            break;
+	        case "Chevalier de la mort":
+	            System.out.println("Pouvoir du Chevalier de la mort : effet spécial à implémenter !");
 	            break;
 	        default:
 	            System.out.println("Pouvoir spécial non implémenté pour ce héros.");

@@ -1,4 +1,6 @@
 package cartes;
+import java.util.List;
+
 import joueur.Heros;
 
 
@@ -92,6 +94,17 @@ public class Serviteur extends Carte  {
 		// TODO Auto-generated method stub
 		
 	}
+
+    public String getPointDeVie() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPointDeVie'");
+    }
+
+    @Override
+    public List<Carte> getServiteurs() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getServiteurs'");
+    }
     
     
 

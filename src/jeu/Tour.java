@@ -19,59 +19,75 @@ public class Tour {
 		// Si le joueur a encore des cartes en main //
 		if (!joueurActuel.getMain().isEmpty()) {
 			List<Carte> main = joueurActuel.getMain();
-			System.out.println("Voici les cartes que vous avez encore en main : \n");
-			for (int i=0 ; i<main.size();i++) {
-				int indice = i+1;
-				System.out.println("-" + indice + " " + main.get(i).getNom() + " ;\n");
-			}
-			System.err.println("Veuillez choisir une carte que vous voulez activer (mettre sur le plateau) : \n");
 			Scanner scanner = new Scanner(System.in);
-			int choixCarte = scanner.nextInt();
-			
-			// Vérifier que le choix est valide //
-			if (choixCarte >= 0 && choixCarte <= main.size()) {
+			boolean carteJouee = false;
+			while (!carteJouee) {
+				System.out.println("Vous avez " + joueurActuel.getMana() + " mana.");
+				System.out.println("Voici les cartes que vous avez encore en main : ");
+				for (int i = 0; i < main.size(); i++) {
+					int indice = i + 1;
+					System.out.println("-" + indice + " " + main.get(i).getNom() + " (Mana : " + main.get(i).getCoutMana() + ")");
+				}
+				boolean auMoinsUneJouable = false;
+				for (Carte c : main) {
+					if (c.getCoutMana() <= joueurActuel.getMana()) {
+						auMoinsUneJouable = true;
+						break;
+					}
+				}
+				if (!auMoinsUneJouable) {
+					System.out.println("Vous n'avez pas assez de mana pour jouer une carte ce tour. Vous passez automatiquement.");
+					break;
+				}
+				System.out.println("Veuillez choisir une carte à activer (0 pour passer) : ");
+				int choixCarte = scanner.nextInt();
+				if (choixCarte == 0) {
+					break; // Le joueur passe
+				}
 				Carte carteChoisie = joueurActuel.getMain().get(choixCarte - 1);
 
-				if (carteChoisie instanceof cartes.Serviteur) {
-				    // Ajouter le serviteur sur le plateau
-				    joueurActuel.ajouterServiteur((cartes.Serviteur) carteChoisie);
-				    System.out.println("Le serviteur " + carteChoisie.getNom() + " a été ajouté à la liste des serviteurs de " + joueurActuel.getNom() + ".");
-				} else if (carteChoisie instanceof cartes.Arme) {
-				    joueurActuel.getHeros().equiperArme((cartes.Arme) carteChoisie);
-				    System.out.println("Le héros " + joueurActuel.getNom() + " équipe l'arme " + carteChoisie.getNom() + ".");
-				} else if (carteChoisie instanceof cartes.Sort) {
-				    // Ici tu dois appliquer l'effet du sort (à adapter selon ton implémentation)
-				    cartes.Sort sort = (cartes.Sort) carteChoisie;
-				    if (sort.getEffet().equalsIgnoreCase("degat")) {
-				        joueurAdverse.getHeros().recevoirDegat(sort.getValeur());
-				        System.out.println("Le sort inflige " + sort.getValeur() + " dégâts au héros adverse !");
-				    } else if (sort.getEffet().equalsIgnoreCase("soin")) {
-				        joueurActuel.getHeros().soigner(sort.getValeur());
-				        System.out.println("Le sort soigne votre héros de " + sort.getValeur() + " points !");
-				    }
-				    // Ajoute d'autres effets si besoin
+				// Vérification du mana
+				if (carteChoisie.getCoutMana() > joueurActuel.getMana()) {
+					System.out.println("Vous n'avez pas assez de mana pour activer cette carte ! Choisissez-en une autre.");
+				} else {
+					joueurActuel.utiliseMana(carteChoisie.getCoutMana());
+
+					if (carteChoisie instanceof cartes.Serviteur) {
+						joueurActuel.ajouterServiteur((cartes.Serviteur) carteChoisie);
+						System.out.println("Le serviteur " + carteChoisie.getNom() + " a été ajouté à la liste des serviteurs de " + joueurActuel.getNom() + ".");
+					} else if (carteChoisie instanceof cartes.Arme) {
+						joueurActuel.getHeros().equiperArme((cartes.Arme) carteChoisie);
+						System.out.println("Le héros " + joueurActuel.getNom() + " équipe l'arme " + carteChoisie.getNom() + ".");
+					} else if (carteChoisie instanceof cartes.Sort) {
+						cartes.Sort sort = (cartes.Sort) carteChoisie;
+						if (sort.getEffet().equalsIgnoreCase("degat")) {
+							joueurAdverse.getHeros().recevoirDegat(sort.getValeur());
+							System.out.println("Le sort inflige " + sort.getValeur() + " dégâts au héros adverse !");
+						} else if (sort.getEffet().equalsIgnoreCase("soin")) {
+							joueurActuel.getHeros().soigner(sort.getValeur());
+							System.out.println("Le sort soigne votre héros de " + sort.getValeur() + " points !");
+						}
+					}
+					joueurActuel.retirerCarteMain(carteChoisie);
+					carteJouee = true;
 				}
-				joueurActuel.retirerCarteMain(carteChoisie);
 			}
-			else {
-				System.out.println("Le choix de la carte est invalide !");
-			}
-		}
-		// Si le joueur n'a plus de carte en main //
-		else {
+		} else {
 			System.out.println("Vous n'avez aucune carte en main !");
 		}
 		
 		// Le joueur veut attaquer //
 		// Le joueur n a pas de serviteur invoques sur le plateau //
 		if (joueurActuel.getServiteurs().isEmpty()) {
-	        System.out.println(joueurActuel.getNom() + " n'a pas de serviteurs invoqués et ne peut pas attaquer !");
+	        
+			System.out.println(joueurActuel.getNom() + " n'a pas de serviteurs invoqués et ne peut pas attaquer !");
 	    } else { 
 	    	// Le joueur a des serviteur invoques sur le plateau //
 			// Vérifier si le joueur peut attaquer le héros adverse
+			
 			if (joueurAdverse.getServiteurs().isEmpty()) {
 				System.out.println(joueurActuel.getNom() + " attaque le héros adverse !");
-				Serviteur serviteur = joueurActuel.getServiteurs().get(0); // Exemple : premier serviteur
+				Serviteur serviteur = (Serviteur) joueurActuel.getServiteurs().get(0); // Exemple : premier serviteur
 	
 				serviteur.attaquer(joueurAdverse.getHeros());
 			} else {
@@ -82,7 +98,7 @@ public class Tour {
 					System.out.println((i + 1) + " - " + serviteursActuels.get(i));
 				}
 				int choixAttaquant = scanner.nextInt() - 1;
-				Serviteur attaquant = serviteursActuels.get(choixAttaquant);
+				Serviteur attaquant = (Serviteur) serviteursActuels.get(choixAttaquant);
 
 				// Choix de la cible
 				System.out.println("Choisissez la cible :");
@@ -109,7 +125,8 @@ public class Tour {
 		System.out.println("Voulez-vous utiliser le pouvoir héroïque ? (o/n)");
 		String reponse = scanner.nextLine();
 		if (reponse.equalsIgnoreCase("o")) {
-		    joueurActuel.getHeros().utiliserPouvoir(joueurActuel, joueurAdverse);
+		    
+			joueurActuel.getHeros().utiliserPouvoir(joueurActuel, joueurAdverse);
 		}
 	}
 }

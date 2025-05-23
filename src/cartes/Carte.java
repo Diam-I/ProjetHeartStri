@@ -1,6 +1,7 @@
 package cartes;
 
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class Carte implements Serializable {
 	/*  
@@ -41,4 +42,6 @@ public abstract class Carte implements Serializable {
 	public abstract void utiliser(); // Methode abstraite qui sera redéfinie dans les classes filles (Serviteur, Sort, Arme) //	
 
 	private static final long serialVersionUID = 1L;
+
+    public abstract List<Carte> getServiteurs();
 }

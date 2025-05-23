@@ -17,7 +17,7 @@ public class Combat {
         Partie partie = new Partie(joueur1, joueur2, 1, joueur1, plateau);
 
         // Lancement de la partie
-        partie.demarrer();
+        partie.menuPrincipal();
 
 
     }

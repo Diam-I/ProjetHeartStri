@@ -1,5 +1,6 @@
 package cartes;
 
+import java.util.List;
 
 public class Arme extends Carte {
 	private static final long serialVersionUID = 1L;
@@ -44,5 +45,13 @@ public class Arme extends Carte {
 	@Override
 	public void afficher() {
 		
+	}
+
+
+
+	@Override
+	public List<Carte> getServiteurs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

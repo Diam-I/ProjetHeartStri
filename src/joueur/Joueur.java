@@ -18,11 +18,13 @@ public class Joueur implements Serializable {
     public static final int VIE_MIN = 0; // Valeur minimale de vie
 	private Heros heros; // Attribut pour stocker le héros du joueur
 	private List<Carte> main ; // Liste de carte que le joueur a dans sa main 
+	private int manaMax; // Le maximum de mana disponible ce tour
 
     // Constructeur de la classe Joueur
     public Joueur(String nom) {
         this.nom = nom; // Initialisation du nom du joueur
-        this.mana = MANA_MAX; // Initialisation du mana à la valeur maximale
+        this.manaMax = 1; // Commence à 1 mana max
+        this.mana = 1;    // Commence à 1 mana disponible
         this.vie = VIE_MAX; // Initialisation de la vie à la valeur maximale
         this.serviteurs = new ArrayList<>(); // Initialisation du serviteur à null
         this.main = new ArrayList<>(); // Initialisation des cartes dans la main à null
@@ -47,6 +49,15 @@ public class Joueur implements Serializable {
 	public List<Carte> getMain () {
 		return main ; // Retourne les cartes dans la main du joueur
 	}
+	public int getManaMax() {
+        return manaMax;
+    }
+    public void setManaMax(int manaMax) {
+        this.manaMax = manaMax;
+    }
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
 
      
     public void jouerTour() {

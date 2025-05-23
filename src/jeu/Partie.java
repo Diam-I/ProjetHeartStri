@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import cartes.Carte;
 import cartes.Deck;
+import cartes.Serviteur;
 import joueur.Heros;
 import joueur.Joueur;
 
@@ -100,6 +101,29 @@ public class Partie implements Serializable {
 
         while (!finPartie()) {
             System.out.println("C'est le tour numéro " + numeroTour + " : " + joueurActuel.getNom() + " joue.");
+            //  Affichage des infos des héros
+            System.out.println("État des héros :");
+            System.out.println(joueur1.getNom() + " (" + joueur1.getHeros().getNom() + ") : " 
+                + joueur1.getHeros().getPointDeVie() + " PV, " 
+                + joueur1.getMana() + " Mana");
+            System.out.println(joueur2.getNom() + " (" + joueur2.getHeros().getNom() + ") : " 
+                + joueur2.getHeros().getPointDeVie() + " PV, " 
+                + joueur2.getMana() + " Mana");
+            
+            // Affichage des cartes en main avec leur mana
+            System.out.println("Voici les cartes que vous avez encore en main : ");
+            int i = 1;
+            for (Carte carte : joueurActuel.getMain()) {
+                System.out.println("-" + i + " " + carte.getNom() + " (Mana : " + carte.getCoutMana() + ")");
+                i++;
+            }
+            
+            // Affichage des serviteurs sur le plateau avec leur mana
+            System.out.println("Serviteurs sur le plateau :");
+            for (Serviteur serv : joueurActuel.getServiteurs()) {
+                System.out.println(serv.getNom() + " | Mana : " + serv.getCoutMana() + " | Attaque : " + serv.getAttaque() + " | PV : " + serv.getPointDeVie());
+            }
+            
             System.out.println("Tapez 's' pour sauvegarder et quitter, ou appuyez sur Entrée pour continuer.");
             String choix = scanner.nextLine();
             if (choix.equalsIgnoreCase("s")) {
@@ -120,6 +144,12 @@ public class Partie implements Serializable {
                 joueurActuel.piocherCarte(deck2);
             }
 
+            // Avant de lancer le tour du joueur :
+            if (joueurActuel.getManaMax() < Joueur.MANA_MAX) {
+                joueurActuel.setManaMax(joueurActuel.getManaMax() + 1);
+            }
+            joueurActuel.setMana(joueurActuel.getManaMax());
+            
             Tour.jouerTour(joueurActuel, joueurAdverse);
             Heros herosJoueurActuelle = joueurActuel.getHeros();
             if (herosJoueurActuelle.getCoutMana() < 10) {
