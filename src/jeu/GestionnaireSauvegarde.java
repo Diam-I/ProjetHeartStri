@@ -5,11 +5,19 @@ import cartes.Carte;
 import cartes.Deck;
 import joueur.Joueur;
 
+/**
+ * Classe utilitaire pour la sauvegarde et le chargement des decks et des parties.
+ */
 public class GestionnaireSauvegarde {
 
+    /** Dossier où sont stockées les sauvegardes */
     private static final String DOSSIER_SAUVEGARDE = "src/sauvegardes/";
 
-    // Utilitaire pour préfixer le chemin si besoin
+    /**
+     * Retourne le chemin complet du fichier de sauvegarde.
+     * @param nomFichier le nom du fichier
+     * @return le chemin complet du fichier
+     */
     private static String cheminComplet(String nomFichier) {
         if (nomFichier.startsWith(DOSSIER_SAUVEGARDE)) {
             return nomFichier;
@@ -17,7 +25,12 @@ public class GestionnaireSauvegarde {
         return DOSSIER_SAUVEGARDE + nomFichier;
     }
 
-    // Sauvegarder un deck dans un fichier texte
+    /**
+     * Sauvegarde un deck dans un fichier texte.
+     * @param deck le deck à sauvegarder
+     * @param nomFichier le nom du fichier de sauvegarde
+     * @throws IOException en cas d'erreur d'écriture
+     */
     public static void sauvegarderDeck(Deck deck, String nomFichier) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminComplet(nomFichier)))) {
             for (Carte carte : deck.getCartes()) {
@@ -36,7 +49,12 @@ public class GestionnaireSauvegarde {
         }
     }
 
-    // Charger un deck depuis un fichier texte
+    /**
+     * Charge un deck depuis un fichier texte.
+     * @param nomFichier le nom du fichier à charger
+     * @return le deck chargé
+     * @throws IOException en cas d'erreur de lecture
+     */
     public static Deck chargerDeck(String nomFichier) throws IOException {
         Deck deck = new Deck();
         try (BufferedReader reader = new BufferedReader(new FileReader(cheminComplet(nomFichier)))) {
@@ -69,7 +87,14 @@ public class GestionnaireSauvegarde {
         return deck;
     }
 
-    // Sauvegarder l’état d’une partie (exemple simplifié)
+    /**
+     * Sauvegarde l'état d'une partie (exemple simplifié).
+     * @param joueur1 le premier joueur
+     * @param joueur2 le second joueur
+     * @param numeroTour le numéro du tour actuel
+     * @param nomFichier le nom du fichier de sauvegarde
+     * @throws IOException en cas d'erreur d'écriture
+     */
     public static void sauvegarderPartie(Joueur joueur1, Joueur joueur2, int numeroTour, String nomFichier) throws IOException {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cheminComplet(nomFichier)))) {
             oos.writeObject(joueur1);
@@ -78,7 +103,13 @@ public class GestionnaireSauvegarde {
         }
     }
 
-    // Charger l’état d’une partie (exemple simplifié)
+    /**
+     * Charge l'état d'une partie (exemple simplifié).
+     * @param nomFichier le nom du fichier à charger
+     * @return un tableau contenant les deux joueurs et le numéro du tour
+     * @throws IOException en cas d'erreur de lecture
+     * @throws ClassNotFoundException si une classe n'est pas trouvée lors de la désérialisation
+     */
     public static Object[] chargerPartie(String nomFichier) throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(cheminComplet(nomFichier)))) {
             Joueur joueur1 = (Joueur) ois.readObject();
